@@ -1,0 +1,24 @@
+{
+  "originHash" : "283bf6504afdf080f3a58dc19d184ac34565fa2e3473b8487bdbbc2852908a3a",
+  "pins" : [
+    {
+      "identity" : "jjliso8601dateformatter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michaeleisel/JJLISO8601DateFormatter.git",
+      "state" : {
+        "revision" : "741a9e45db01148a8ac60c5e12f7c978181a22d3",
+        "version" : "0.1.8"
+      }
+    },
+    {
+      "identity" : "yyjson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ibireme/yyjson.git",
+      "state" : {
+        "revision" : "9ddba001a4ea88e93b46932e5c5b87b222e19a5f",
+        "version" : "0.10.0"
+      }
+    }
+  ],
+  "version" : 3
+}
