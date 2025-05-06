@@ -27,9 +27,9 @@ extension BananaModel {
                 json = json[key]
             }
 
-            return Self(json: json)
+            return .init(json: json)
         } else {
-            return Self(json: .init(pointer: nil))
+            return .init(json: .init(pointer: nil))
         }
     }
 
@@ -41,7 +41,7 @@ extension BananaModel {
         if let jsonData = jsonString.data(using: encoding) {
             return decode(from: jsonData, path: path)
         } else {
-            return Self(json: .init(pointer: nil))
+            return .init(json: .init(pointer: nil))
         }
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 import yyjson
 
 @dynamicMemberLookup public struct BananaJSON {
-    private let pointer: UnsafeMutablePointer<yyjson_val>?
+    @usableFromInline let pointer: UnsafeMutablePointer<yyjson_val>?
 
     public init(pointer: UnsafeMutablePointer<yyjson_val>?) {
         self.pointer = pointer
@@ -22,7 +22,7 @@ import yyjson
 }
 
 extension BananaJSON {
-    public func rawBool() -> Bool? {
+    @inlinable public func rawBool() -> Bool? {
         if yyjson_is_bool(pointer) {
             return yyjson_get_bool(pointer)
         }
@@ -30,7 +30,7 @@ extension BananaJSON {
         return nil
     }
 
-    public func rawInt() -> Int? {
+    @inlinable public func rawInt() -> Int? {
         if yyjson_is_int(pointer) {
             return .init(yyjson_get_sint(pointer))
         }
@@ -38,7 +38,7 @@ extension BananaJSON {
         return nil
     }
 
-    public func rawDouble() -> Double? {
+    @inlinable public func rawDouble() -> Double? {
         if yyjson_is_num(pointer) {
             return yyjson_get_num(pointer)
         }
@@ -46,7 +46,7 @@ extension BananaJSON {
         return nil
     }
 
-    public func rawString() -> String? {
+    @inlinable public func rawString() -> String? {
         if let cString = yyjson_get_str(pointer) {
             return .init(cString: cString)
         }

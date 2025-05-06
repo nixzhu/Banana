@@ -97,7 +97,7 @@ extension ISO8601DateFormatter: @retroactive @unchecked Sendable {
 }
 #else
 extension JJLISO8601DateFormatter: @retroactive @unchecked Sendable {
-    public static func ananda_date(from string: String) -> Date? {
+    fileprivate static func ananda_date(from string: String) -> Date? {
         if let date = ananda_iso8601A.date(from: string) {
             return date
         }
