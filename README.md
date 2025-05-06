@@ -8,27 +8,27 @@ Given the following JSON:
 
 ```json
 {
-  "profile": {
-    "nickname": "NIX",
-    "username": "@nixzhu@mastodon.social",
-    "avatar": {
-      "url": "https://example.com/nixzhu.png",
-      "width": 200,
-      "height": 200
-    }
-  },
-  "toots": [
-    {
-      "id": 1,
-      "content": "Hello World!",
-      "created_at": "2024-10-05T09:41:00.789Z"
+    "profile": {
+        "nickname": "NIX",
+        "username": "@nixzhu@mastodon.social",
+        "avatar": {
+            "url": "https://example.com/nixzhu.png",
+            "width": 200,
+            "height": 200
+        }
     },
-    {
-      "id": 2,
-      "content": "How do you do?",
-      "created_at": "2025-04-29T22:23:24.567Z"
-    }
-  ]
+    "toots": [
+        {
+            "id": 1,
+            "content": "Hello World!",
+            "created_at": "2024-10-05T09:41:00.789Z"
+        },
+        {
+            "id": 2,
+            "content": "How do you do?",
+            "created_at": "2025-04-29T22:23:24.567Z"
+        }
+    ]
 }
 ```
 
