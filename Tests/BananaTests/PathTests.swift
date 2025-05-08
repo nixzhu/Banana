@@ -48,3 +48,30 @@ import Testing
     let list = [B].decode(from: jsonString, path: ["a", "b"])
     #expect(list[0].c == 42)
 }
+
+@Test func path3() {
+    struct D: BananaModel {
+        let d: Int
+
+        init(json: BananaJSON) {
+            d = json.d.int()
+        }
+    }
+
+    let jsonString = """
+        {
+            "a": {
+                "b": [
+                    {
+                        "c": {
+                            "d": 42
+                        }
+                    }
+                ]
+            }
+        }
+        """
+
+    let d = D.decode(from: jsonString, path: ["a", "b", 0, "c"])
+    #expect(d.d == 42)
+}

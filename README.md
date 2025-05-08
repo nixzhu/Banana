@@ -114,3 +114,9 @@ To decode an array (e.g. `toots`):
 ```swift
 let toots = [Mastodon.Toot].decode(from: jsonData, path: ["toots"])
 ```
+
+Or decode only the first toot:
+
+```swift
+let toot = Mastodon.Toot.decode(from: jsonData, path: ["toots", 0])
+```

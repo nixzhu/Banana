@@ -48,6 +48,11 @@ import Testing
     #expect(toots[1].id == 2)
     #expect(toots[1].content == "How do you do?")
     #expect(toots[1].createdAt.timeIntervalSince1970 == 1_745_965_404.567)
+
+    let toot = Mastodon.Toot.decode(from: jsonData, path: ["toots", 0])
+    #expect(toot.id == 1)
+    #expect(toot.content == "Hello World!")
+    #expect(toot.createdAt.timeIntervalSince1970 == 1_728_121_260.789)
 }
 
 struct Mastodon: BananaModel {

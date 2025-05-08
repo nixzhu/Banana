@@ -8,7 +8,7 @@ public protocol BananaModel {
 extension BananaModel {
     public static func decode(
         from jsonData: Data,
-        path: [String] = []
+        path: [BananaPathItem] = []
     ) -> Self {
         let doc = jsonData.withUnsafeBytes {
             yyjson_read($0.bindMemory(to: CChar.self).baseAddress, jsonData.count, 0)
@@ -23,8 +23,13 @@ extension BananaModel {
                 pointer: yyjson_doc_get_root(doc)
             )
 
-            for key in path {
-                json = json[key]
+            for item in path {
+                switch item {
+                case .key(let key):
+                    json = json[key]
+                case .index(let index):
+                    json = json[index]
+                }
             }
 
             return .init(json: json)
@@ -35,13 +40,13 @@ extension BananaModel {
 
     public static func decode(
         from jsonString: String,
-        path: [String] = [],
+        path: [BananaPathItem] = [],
         encoding: String.Encoding = .utf8
     ) -> Self {
         if let jsonData = jsonString.data(using: encoding) {
-            return decode(from: jsonData, path: path)
+            decode(from: jsonData, path: path)
         } else {
-            return .init(json: .init(pointer: nil))
+            .init(json: .init(pointer: nil))
         }
     }
 }
@@ -49,7 +54,7 @@ extension BananaModel {
 extension Array where Element: BananaModel {
     public static func decode(
         from jsonData: Data,
-        path: [String] = []
+        path: [BananaPathItem] = []
     ) -> Self {
         let doc = jsonData.withUnsafeBytes {
             yyjson_read($0.bindMemory(to: CChar.self).baseAddress, jsonData.count, 0)
@@ -64,8 +69,13 @@ extension Array where Element: BananaModel {
                 pointer: yyjson_doc_get_root(doc)
             )
 
-            for key in path {
-                json = json[key]
+            for item in path {
+                switch item {
+                case .key(let key):
+                    json = json[key]
+                case .index(let index):
+                    json = json[index]
+                }
             }
 
             return json.array().map { .init(json: $0) }
@@ -76,13 +86,13 @@ extension Array where Element: BananaModel {
 
     public static func decode(
         from jsonString: String,
-        path: [String] = [],
+        path: [BananaPathItem] = [],
         encoding: String.Encoding = .utf8
     ) -> Self {
         if let jsonData = jsonString.data(using: encoding) {
-            return decode(from: jsonData, path: path)
+            decode(from: jsonData, path: path)
         } else {
-            return []
+            []
         }
     }
 }
