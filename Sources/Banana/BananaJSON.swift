@@ -67,15 +67,15 @@ extension BananaJSON {
         yyjson_obj_iter_init(pointer, &iter)
 
         while true {
-            if let key = yyjson_obj_iter_next(&iter),
-               let value = yyjson_obj_iter_get_val(key)
+            if let keyPointer = yyjson_obj_iter_next(&iter),
+               let valuePointer = yyjson_obj_iter_get_val(keyPointer)
             {
-                let keyString = yyjson_get_str(key).flatMap {
+                let key = yyjson_get_str(keyPointer).flatMap {
                     String(cString: $0)
                 }
 
-                if let keyString {
-                    result[keyString] = .init(pointer: value)
+                if let key {
+                    result[key] = .init(pointer: valuePointer)
                 } else {
                     assertionFailure("Should not be here!")
                 }
@@ -100,8 +100,8 @@ extension BananaJSON {
         yyjson_arr_iter_init(pointer, &iter)
 
         while true {
-            if let value = yyjson_arr_iter_next(&iter) {
-                result.append(.init(pointer: value))
+            if let valuePointer = yyjson_arr_iter_next(&iter) {
+                result.append(.init(pointer: valuePointer))
             } else {
                 break
             }
