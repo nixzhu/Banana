@@ -63,71 +63,77 @@ extension BananaJSON {
 #if os(Linux)
 extension ISO8601DateFormatter: @retroactive @unchecked Sendable {
     fileprivate static func ananda_date(from string: String) -> Date? {
-        if let date = ananda_internetA.date(from: string) {
-            return date
-        }
-
-        if let date = ananda_internetB.date(from: string) {
-            return date
+        for formatter in formatters {
+            if let date = formatter.date(from: string) {
+                return date
+            }
         }
 
         return nil
     }
 
-    private static let ananda_internetA: ISO8601DateFormatter = {
-        let dateFormatter = ISO8601DateFormatter()
+    private static let formatters: [ISO8601DateFormatter] = [
+        internetWithFractional,
+        internetWithoutFractional,
+    ]
 
-        dateFormatter.formatOptions = [
+    private static let internetWithFractional: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+
+        formatter.formatOptions = [
             .withInternetDateTime,
             .withFractionalSeconds,
         ]
 
-        return dateFormatter
+        return formatter
     }()
 
-    private static let ananda_internetB: ISO8601DateFormatter = {
-        let dateFormatter = ISO8601DateFormatter()
+    private static let internetWithoutFractional: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
 
-        dateFormatter.formatOptions = [
+        formatter.formatOptions = [
             .withInternetDateTime,
         ]
 
-        return dateFormatter
+        return formatter
     }()
 }
 #else
 extension JJLISO8601DateFormatter: @retroactive @unchecked Sendable {
     fileprivate static func ananda_date(from string: String) -> Date? {
-        if let date = ananda_iso8601A.date(from: string) {
-            return date
-        }
-
-        if let date = ananda_iso8601B.date(from: string) {
-            return date
+        for formatter in formatters {
+            if let date = formatter.date(from: string) {
+                return date
+            }
         }
 
         return nil
     }
 
-    private static let ananda_iso8601A: JJLISO8601DateFormatter = {
-        let dateFormatter = JJLISO8601DateFormatter()
+    private static let formatters: [JJLISO8601DateFormatter] = [
+        internetWithFractional,
+        internetWithoutFractional,
+    ]
 
-        dateFormatter.formatOptions = [
+    private static let internetWithFractional: JJLISO8601DateFormatter = {
+        let formatter = JJLISO8601DateFormatter()
+
+        formatter.formatOptions = [
             .withInternetDateTime,
             .withFractionalSeconds,
         ]
 
-        return dateFormatter
+        return formatter
     }()
 
-    private static let ananda_iso8601B: JJLISO8601DateFormatter = {
-        let dateFormatter = JJLISO8601DateFormatter()
+    private static let internetWithoutFractional: JJLISO8601DateFormatter = {
+        let formatter = JJLISO8601DateFormatter()
 
-        dateFormatter.formatOptions = [
+        formatter.formatOptions = [
             .withInternetDateTime,
         ]
 
-        return dateFormatter
+        return formatter
     }()
 }
 #endif
