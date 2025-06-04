@@ -12,7 +12,7 @@ extension BananaJSON {
         case custom((BananaJSON) -> Date?)
     }
 
-    public func dateIfPresent(_ mode: DateMode = .iso8601) -> Date? {
+    public func date(_ mode: DateMode = .iso8601) -> Date? {
         switch mode {
         case .iso8601:
             if let string = rawString() {
@@ -56,7 +56,7 @@ extension BananaJSON {
     }
 
     public func date(_ mode: DateMode = .iso8601, fallback: Date = .distantPast) -> Date {
-        dateIfPresent(mode) ?? fallback
+        date(mode) ?? fallback
     }
 }
 

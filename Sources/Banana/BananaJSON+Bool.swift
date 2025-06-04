@@ -8,7 +8,7 @@ extension BananaJSON {
         case custom((BananaJSON) -> Bool?)
     }
 
-    public func boolIfPresent(_ mode: BoolMode = .strict) -> Bool? {
+    public func bool(_ mode: BoolMode = .strict) -> Bool? {
         switch mode {
         case .strict:
             if let bool = rawBool() {
@@ -50,6 +50,6 @@ extension BananaJSON {
     }
 
     public func bool(_ mode: BoolMode = .strict, fallback: Bool = false) -> Bool {
-        boolIfPresent(mode) ?? fallback
+        bool(mode) ?? fallback
     }
 }

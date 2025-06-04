@@ -1,4 +1,3 @@
-import Foundation
 import Testing
 @testable import Banana
 
@@ -19,13 +18,13 @@ import Testing
         let a, b, c, d, e, f, g: Double?
 
         init(json: BananaJSON) {
-            a = json.a.doubleIfPresent(.strict)
-            b = json.b.doubleIfPresent(.strict)
-            c = json.c.doubleIfPresent(.strict)
-            d = json.d.doubleIfPresent(.strict)
-            e = json.e.doubleIfPresent(.strict)
-            f = json.f.doubleIfPresent(.strict)
-            g = json.g.doubleIfPresent(.strict)
+            a = json.a.double(.strict)
+            b = json.b.double(.strict)
+            c = json.c.double(.strict)
+            d = json.d.double(.strict)
+            e = json.e.double(.strict)
+            f = json.f.double(.strict)
+            g = json.g.double(.strict)
         }
     }
 
@@ -94,12 +93,12 @@ import Testing
         let a, b, c, d, e, f: Double?
 
         init(json: BananaJSON) {
-            a = json.a.doubleIfPresent(.string)
-            b = json.b.doubleIfPresent(.string)
-            c = json.c.doubleIfPresent(.string)
-            d = json.d.doubleIfPresent(.string)
-            e = json.e.doubleIfPresent(.string)
-            f = json.f.doubleIfPresent(.string)
+            a = json.a.double(.string)
+            b = json.b.double(.string)
+            c = json.c.double(.string)
+            d = json.d.double(.string)
+            e = json.e.double(.string)
+            f = json.f.double(.string)
         }
     }
 
@@ -164,12 +163,12 @@ import Testing
         let a, b, c, d, e, f: Double?
 
         init(json: BananaJSON) {
-            a = json.a.doubleIfPresent(.compatible)
-            b = json.b.doubleIfPresent(.compatible)
-            c = json.c.doubleIfPresent(.compatible)
-            d = json.d.doubleIfPresent(.compatible)
-            e = json.e.doubleIfPresent(.compatible)
-            f = json.f.doubleIfPresent(.compatible)
+            a = json.a.double(.compatible)
+            b = json.b.double(.compatible)
+            c = json.c.double(.compatible)
+            d = json.d.double(.compatible)
+            e = json.e.double(.compatible)
+            f = json.f.double(.compatible)
         }
     }
 
@@ -234,12 +233,12 @@ import Testing
         let a, b, c, d, e, f: Double?
 
         init(json: BananaJSON) {
-            a = json.a.doubleIfPresent(.custom(parseDouble))
-            b = json.b.doubleIfPresent(.custom(parseDouble))
-            c = json.c.doubleIfPresent(.custom(parseDouble))
-            d = json.d.doubleIfPresent(.custom(parseDouble))
-            e = json.e.doubleIfPresent(.custom(parseDouble))
-            f = json.f.doubleIfPresent(.custom(parseDouble))
+            a = json.a.double(.custom(parseDouble))
+            b = json.b.double(.custom(parseDouble))
+            c = json.c.double(.custom(parseDouble))
+            d = json.d.double(.custom(parseDouble))
+            e = json.e.double(.custom(parseDouble))
+            f = json.f.double(.custom(parseDouble))
         }
     }
 

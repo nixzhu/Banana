@@ -1,4 +1,3 @@
-import Foundation
 import Testing
 @testable import Banana
 
@@ -17,11 +16,11 @@ import Testing
         let a, b, c, d, e: String?
 
         init(json: BananaJSON) {
-            a = json.a.stringIfPresent(.strict)
-            b = json.b.stringIfPresent(.strict)
-            c = json.c.stringIfPresent(.strict)
-            d = json.d.stringIfPresent(.strict)
-            e = json.e.stringIfPresent(.strict)
+            a = json.a.string(.strict)
+            b = json.b.string(.strict)
+            c = json.c.string(.strict)
+            d = json.d.string(.strict)
+            e = json.e.string(.strict)
         }
     }
 
@@ -81,11 +80,11 @@ import Testing
         let a, b, c, d, e: String?
 
         init(json: BananaJSON) {
-            a = json.a.stringIfPresent(.int)
-            b = json.b.stringIfPresent(.int)
-            c = json.c.stringIfPresent(.int)
-            d = json.d.stringIfPresent(.int)
-            e = json.e.stringIfPresent(.int)
+            a = json.a.string(.int)
+            b = json.b.string(.int)
+            c = json.c.string(.int)
+            d = json.d.string(.int)
+            e = json.e.string(.int)
         }
     }
 
@@ -145,11 +144,11 @@ import Testing
         let a, b, c, d, e: String?
 
         init(json: BananaJSON) {
-            a = json.a.stringIfPresent(.compatible)
-            b = json.b.stringIfPresent(.compatible)
-            c = json.c.stringIfPresent(.compatible)
-            d = json.d.stringIfPresent(.compatible)
-            e = json.e.stringIfPresent(.compatible)
+            a = json.a.string(.compatible)
+            b = json.b.string(.compatible)
+            c = json.c.string(.compatible)
+            d = json.d.string(.compatible)
+            e = json.e.string(.compatible)
         }
     }
 
@@ -208,10 +207,10 @@ import Testing
         let a, b, c, d: String?
 
         init(json: BananaJSON) {
-            a = json.a.stringIfPresent(.custom(parseString))
-            b = json.b.stringIfPresent(.custom(parseString))
-            c = json.c.stringIfPresent(.custom(parseString))
-            d = json.d.stringIfPresent(.custom(parseString))
+            a = json.a.string(.custom(parseString))
+            b = json.b.string(.custom(parseString))
+            c = json.c.string(.custom(parseString))
+            d = json.d.string(.custom(parseString))
         }
     }
 

@@ -9,7 +9,7 @@ extension BananaJSON {
         case custom((BananaJSON) -> String?)
     }
 
-    public func stringIfPresent(_ mode: StringMode = .strict) -> String? {
+    public func string(_ mode: StringMode = .strict) -> String? {
         switch mode {
         case .strict:
             if let string = rawString() {
@@ -37,6 +37,6 @@ extension BananaJSON {
     }
 
     public func string(_ mode: StringMode = .strict, fallback: String = "") -> String {
-        stringIfPresent(mode) ?? fallback
+        string(mode) ?? fallback
     }
 }

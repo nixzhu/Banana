@@ -17,11 +17,11 @@ import Testing
         let a, b, c, d, e: Date?
 
         init(json: BananaJSON) {
-            a = json.a.dateIfPresent(.iso8601)
-            b = json.b.dateIfPresent(.iso8601)
-            c = json.c.dateIfPresent(.iso8601)
-            d = json.d.dateIfPresent(.iso8601)
-            e = json.e.dateIfPresent(.iso8601)
+            a = json.a.date(.iso8601)
+            b = json.b.date(.iso8601)
+            c = json.c.date(.iso8601)
+            d = json.d.date(.iso8601)
+            e = json.e.date(.iso8601)
         }
     }
 
@@ -93,12 +93,12 @@ import Testing
         let a, b, c, d, e, f: Date?
 
         init(json: BananaJSON) {
-            a = json.a.dateIfPresent(.unixSeconds)
-            b = json.b.dateIfPresent(.unixSeconds)
-            c = json.c.dateIfPresent(.unixSeconds)
-            d = json.d.dateIfPresent(.unixSeconds)
-            e = json.e.dateIfPresent(.unixSeconds)
-            f = json.f.dateIfPresent(.unixSeconds)
+            a = json.a.date(.unixSeconds)
+            b = json.b.date(.unixSeconds)
+            c = json.c.date(.unixSeconds)
+            d = json.d.date(.unixSeconds)
+            e = json.e.date(.unixSeconds)
+            f = json.f.date(.unixSeconds)
         }
     }
 
@@ -161,12 +161,12 @@ import Testing
         let a, b, c, d, e, f: Date?
 
         init(json: BananaJSON) {
-            a = json.a.dateIfPresent(.unixMilliseconds)
-            b = json.b.dateIfPresent(.unixMilliseconds)
-            c = json.c.dateIfPresent(.unixMilliseconds)
-            d = json.d.dateIfPresent(.unixMilliseconds)
-            e = json.e.dateIfPresent(.unixMilliseconds)
-            f = json.f.dateIfPresent(.unixMilliseconds)
+            a = json.a.date(.unixMilliseconds)
+            b = json.b.date(.unixMilliseconds)
+            c = json.c.date(.unixMilliseconds)
+            d = json.d.date(.unixMilliseconds)
+            e = json.e.date(.unixMilliseconds)
+            f = json.f.date(.unixMilliseconds)
         }
     }
 
@@ -232,9 +232,9 @@ import Testing
                 return .init(timeIntervalSince1970: 197_136_000)
             }
 
-            a = json.a.dateIfPresent(.custom(parser))
-            b = json.b.dateIfPresent(.custom(parser))
-            c = json.c.dateIfPresent(.custom(parser))
+            a = json.a.date(.custom(parser))
+            b = json.b.date(.custom(parser))
+            c = json.c.date(.custom(parser))
         }
     }
 

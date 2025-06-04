@@ -1,4 +1,3 @@
-import Foundation
 import Testing
 @testable import Banana
 
@@ -22,16 +21,16 @@ import Testing
         let a, b, c, d, e, f, g, h, i, j: Int?
 
         init(json: BananaJSON) {
-            a = json.a.intIfPresent(.strict)
-            b = json.b.intIfPresent(.strict)
-            c = json.c.intIfPresent(.strict)
-            d = json.d.intIfPresent(.strict)
-            e = json.e.intIfPresent(.strict)
-            f = json.f.intIfPresent(.strict)
-            g = json.g.intIfPresent(.strict)
-            h = json.h.intIfPresent(.strict)
-            i = json.i.intIfPresent(.strict)
-            j = json.j.intIfPresent(.strict)
+            a = json.a.int(.strict)
+            b = json.b.int(.strict)
+            c = json.c.int(.strict)
+            d = json.d.int(.strict)
+            e = json.e.int(.strict)
+            f = json.f.int(.strict)
+            g = json.g.int(.strict)
+            h = json.h.int(.strict)
+            i = json.i.int(.strict)
+            j = json.j.int(.strict)
         }
     }
 
@@ -111,12 +110,12 @@ import Testing
         let a, b, c, d, e, f: Int?
 
         init(json: BananaJSON) {
-            a = json.a.intIfPresent(.string)
-            b = json.b.intIfPresent(.string)
-            c = json.c.intIfPresent(.string)
-            d = json.d.intIfPresent(.string)
-            e = json.e.intIfPresent(.string)
-            f = json.f.intIfPresent(.string)
+            a = json.a.int(.string)
+            b = json.b.int(.string)
+            c = json.c.int(.string)
+            d = json.d.int(.string)
+            e = json.e.int(.string)
+            f = json.f.int(.string)
         }
     }
 
@@ -180,12 +179,12 @@ import Testing
         let a, b, c, d, e, f: Int?
 
         init(json: BananaJSON) {
-            a = json.a.intIfPresent(.compatible)
-            b = json.b.intIfPresent(.compatible)
-            c = json.c.intIfPresent(.compatible)
-            d = json.d.intIfPresent(.compatible)
-            e = json.e.intIfPresent(.compatible)
-            f = json.f.intIfPresent(.compatible)
+            a = json.a.int(.compatible)
+            b = json.b.int(.compatible)
+            c = json.c.int(.compatible)
+            d = json.d.int(.compatible)
+            e = json.e.int(.compatible)
+            f = json.f.int(.compatible)
         }
     }
 
@@ -251,13 +250,13 @@ import Testing
         let a, b, c, d, e, f, g: Int?
 
         init(json: BananaJSON) {
-            a = json.a.intIfPresent(.custom(parseInt))
-            b = json.b.intIfPresent(.custom(parseInt))
-            c = json.c.intIfPresent(.custom(parseInt))
-            d = json.d.intIfPresent(.custom(parseInt))
-            e = json.e.intIfPresent(.custom(parseInt))
-            f = json.f.intIfPresent(.custom(parseInt))
-            g = json.g.intIfPresent(.custom(parseInt))
+            a = json.a.int(.custom(parseInt))
+            b = json.b.int(.custom(parseInt))
+            c = json.c.int(.custom(parseInt))
+            d = json.d.int(.custom(parseInt))
+            e = json.e.int(.custom(parseInt))
+            f = json.f.int(.custom(parseInt))
+            g = json.g.int(.custom(parseInt))
         }
     }
 

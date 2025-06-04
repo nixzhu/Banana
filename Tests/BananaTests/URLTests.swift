@@ -17,11 +17,11 @@ import Testing
         let a, b, c, d, e: URL?
 
         init(json: BananaJSON) {
-            a = json.a.urlIfPresent(.compatible)
-            b = json.b.urlIfPresent(.compatible)
-            c = json.c.urlIfPresent(.compatible)
-            d = json.d.urlIfPresent(.compatible)
-            e = json.e.urlIfPresent(.compatible)
+            a = json.a.url(.compatible)
+            b = json.b.url(.compatible)
+            c = json.c.url(.compatible)
+            d = json.d.url(.compatible)
+            e = json.e.url(.compatible)
         }
     }
 
@@ -89,9 +89,9 @@ import Testing
         let a, b, c: URL?
 
         init(json: BananaJSON) {
-            a = json.a.urlIfPresent(.custom(parse))
-            b = json.b.urlIfPresent(.custom(parse))
-            c = json.c.urlIfPresent(.custom(parse))
+            a = json.a.url(.custom(parse))
+            b = json.b.url(.custom(parse))
+            c = json.c.url(.custom(parse))
         }
     }
 

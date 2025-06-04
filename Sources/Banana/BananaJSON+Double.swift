@@ -8,7 +8,7 @@ extension BananaJSON {
         case custom((BananaJSON) -> Double?)
     }
 
-    public func doubleIfPresent(_ mode: DoubleMode = .strict) -> Double? {
+    public func double(_ mode: DoubleMode = .strict) -> Double? {
         switch mode {
         case .strict:
             if let double = rawDouble() {
@@ -36,6 +36,6 @@ extension BananaJSON {
     }
 
     public func double(_ mode: DoubleMode = .strict, fallback: Double = 0) -> Double {
-        doubleIfPresent(mode) ?? fallback
+        double(mode) ?? fallback
     }
 }

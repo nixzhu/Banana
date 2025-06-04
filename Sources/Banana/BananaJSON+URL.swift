@@ -6,7 +6,7 @@ extension BananaJSON {
         case custom((BananaJSON) -> URL?)
     }
 
-    public func urlIfPresent(_ mode: URLMode = .compatible) -> URL? {
+    public func url(_ mode: URLMode = .compatible) -> URL? {
         switch mode {
         case .compatible:
             if let string = rawString() {
@@ -30,7 +30,7 @@ extension BananaJSON {
     }
 
     public func url(_ mode: URLMode = .compatible, fallback: URL = .init(string: "/")!) -> URL {
-        urlIfPresent(mode) ?? fallback
+        url(mode) ?? fallback
     }
 }
 

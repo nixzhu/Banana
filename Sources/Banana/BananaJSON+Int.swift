@@ -8,7 +8,7 @@ extension BananaJSON {
         case custom((BananaJSON) -> Int?)
     }
 
-    public func intIfPresent(_ mode: IntMode = .strict) -> Int? {
+    public func int(_ mode: IntMode = .strict) -> Int? {
         switch mode {
         case .strict:
             if let int = rawInt() {
@@ -36,6 +36,6 @@ extension BananaJSON {
     }
 
     public func int(_ mode: IntMode = .strict, fallback: Int = 0) -> Int {
-        intIfPresent(mode) ?? fallback
+        int(mode) ?? fallback
     }
 }

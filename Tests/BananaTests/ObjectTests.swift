@@ -40,7 +40,7 @@ import Testing
                 profile = .init(json: json.profile)
                 toots = json.toots.array().map { .init(json: $0) }
 
-                #expect(json.toots[-1].id.intIfPresent() == nil)
+                #expect(json.toots[-1].id.int() == nil)
                 #expect(toots[0].id == 1)
                 #expect(toots[1].id == 2)
                 #expect(toots[2].id == 88_888_888_888_888_888)
@@ -226,11 +226,11 @@ private func parseBool(json: BananaJSON) -> Bool? {
 }
 
 private func parseDate(json: BananaJSON) -> Date? {
-    if let date = json.dateIfPresent(.unixSeconds) {
+    if let date = json.date(.unixSeconds) {
         return date
     }
 
-    if let date = json.dateIfPresent(.iso8601) {
+    if let date = json.date(.iso8601) {
         return date
     }
 
