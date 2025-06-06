@@ -1,3 +1,6 @@
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnixzhu%2FBanana%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/nixzhu/Banana)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnixzhu%2FBanana%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/nixzhu/Banana)
+
 # Banana
 
 A lightweight, high‑performance JSON decoding library powered by [yyjson](https://github.com/ibireme/yyjson).
@@ -91,7 +94,7 @@ extension Mastodon {
 }
 ```
 
-To decode a full `Mastodon` instance from the JSON string:
+To decode a `Mastodon` instance from the JSON string:
 
 ```swift
 let mastodon = Mastodon.decode(from: jsonString)
@@ -103,7 +106,7 @@ Or, if you already have the JSON data:
 let mastodon = Mastodon.decode(from: jsonData)
 ```
 
-To decode only a specific JSON branch, for example `profile.avatar`, specify a path:
+To decode a specific JSON branch, for example `profile.avatar`, specify it's path:
 
 ```swift
 let avatar = Mastodon.Profile.Avatar.decode(from: jsonData, path: ["profile", "avatar"])
@@ -119,4 +122,24 @@ Or decode only the first toot:
 
 ```swift
 let toot = Mastodon.Toot.decode(from: jsonData, path: ["toots", 0])
+```
+
+## Installation
+
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift`compiler.
+
+Once your Swift package is set up, add Banana as a dependency to the `dependencies` value in your `Package.swift` file or to the package list in Xcode.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/nixzhu/Banana.git", from: "0.2.0"),
+]
+```
+
+Typically, you will want to depend on the `Banana` target:
+
+```swift
+.product(name: "Banana", package: "Banana")
 ```
