@@ -2,14 +2,7 @@
 
 import PackageDescription
 
-#if os(Linux)
-let packageDependencies: [Package.Dependency] = [
-    .package(
-        url: "https://github.com/ibireme/yyjson.git",
-        from: "0.11.1"
-    ),
-]
-#else
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
 let packageDependencies: [Package.Dependency] = [
     .package(
         url: "https://github.com/ibireme/yyjson.git",
@@ -20,16 +13,16 @@ let packageDependencies: [Package.Dependency] = [
         from: "0.1.8"
     ),
 ]
-#endif
-
-#if os(Linux)
-let targetDependencies: [Target.Dependency] = [
-    .product(
-        name: "yyjson",
-        package: "yyjson"
+#else
+let packageDependencies: [Package.Dependency] = [
+    .package(
+        url: "https://github.com/ibireme/yyjson.git",
+        from: "0.11.1"
     ),
 ]
-#else
+#endif
+
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
 let targetDependencies: [Target.Dependency] = [
     .product(
         name: "yyjson",
@@ -38,6 +31,13 @@ let targetDependencies: [Target.Dependency] = [
     .product(
         name: "JJLISO8601DateFormatter",
         package: "JJLISO8601DateFormatter"
+    ),
+]
+#else
+let targetDependencies: [Target.Dependency] = [
+    .product(
+        name: "yyjson",
+        package: "yyjson"
     ),
 ]
 #endif

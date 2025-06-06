@@ -1,6 +1,6 @@
 import Foundation
 
-#if !os(Linux)
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
 import JJLISO8601DateFormatter
 #endif
 
@@ -16,12 +16,12 @@ extension BananaJSON {
         switch mode {
         case .iso8601:
             if let string = rawString() {
-                #if os(Linux)
-                if let date = ISO8601DateFormatter.ananda_date(from: string) {
+                #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
+                if let date = JJLISO8601DateFormatter.ananda_date(from: string) {
                     return date
                 }
                 #else
-                if let date = JJLISO8601DateFormatter.ananda_date(from: string) {
+                if let date = ISO8601DateFormatter.ananda_date(from: string) {
                     return date
                 }
                 #endif
@@ -60,45 +60,7 @@ extension BananaJSON {
     }
 }
 
-#if os(Linux)
-extension ISO8601DateFormatter: @retroactive @unchecked Sendable {
-    fileprivate static func ananda_date(from string: String) -> Date? {
-        for formatter in formatters {
-            if let date = formatter.date(from: string) {
-                return date
-            }
-        }
-
-        return nil
-    }
-
-    private static let formatters: [ISO8601DateFormatter] = [
-        internetWithFractional,
-        internetWithoutFractional,
-    ]
-
-    private static let internetWithFractional: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-
-        formatter.formatOptions = [
-            .withInternetDateTime,
-            .withFractionalSeconds,
-        ]
-
-        return formatter
-    }()
-
-    private static let internetWithoutFractional: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-
-        formatter.formatOptions = [
-            .withInternetDateTime,
-        ]
-
-        return formatter
-    }()
-}
-#else
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
 extension JJLISO8601DateFormatter: @retroactive @unchecked Sendable {
     fileprivate static func ananda_date(from string: String) -> Date? {
         for formatter in formatters {
@@ -128,6 +90,44 @@ extension JJLISO8601DateFormatter: @retroactive @unchecked Sendable {
 
     private static let internetWithoutFractional: JJLISO8601DateFormatter = {
         let formatter = JJLISO8601DateFormatter()
+
+        formatter.formatOptions = [
+            .withInternetDateTime,
+        ]
+
+        return formatter
+    }()
+}
+#else
+extension ISO8601DateFormatter: @retroactive @unchecked Sendable {
+    fileprivate static func ananda_date(from string: String) -> Date? {
+        for formatter in formatters {
+            if let date = formatter.date(from: string) {
+                return date
+            }
+        }
+
+        return nil
+    }
+
+    private static let formatters: [ISO8601DateFormatter] = [
+        internetWithFractional,
+        internetWithoutFractional,
+    ]
+
+    private static let internetWithFractional: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+
+        formatter.formatOptions = [
+            .withInternetDateTime,
+            .withFractionalSeconds,
+        ]
+
+        return formatter
+    }()
+
+    private static let internetWithoutFractional: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
 
         formatter.formatOptions = [
             .withInternetDateTime,
