@@ -16,6 +16,10 @@ import Testing
         let a, b, c, d, e: String?
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e"] {
+                #expect(json[key].string() == json[key].string(.strict))
+            }
+
             a = json.a.string(.strict)
             b = json.b.string(.strict)
             c = json.c.string(.strict)
@@ -48,6 +52,10 @@ import Testing
         let a, b, c, d, e: String
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e"] {
+                #expect(json[key].string(fallback: "") == json[key].string(.strict, fallback: ""))
+            }
+
             a = json.a.string(.strict)
             b = json.b.string(.strict)
             c = json.c.string(.strict)

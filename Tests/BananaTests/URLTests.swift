@@ -17,6 +17,10 @@ import Testing
         let a, b, c, d, e: URL?
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e"] {
+                #expect(json[key].url() == json[key].url(.compatible))
+            }
+
             a = json.a.url(.compatible)
             b = json.b.url(.compatible)
             c = json.c.url(.compatible)
@@ -48,6 +52,13 @@ import Testing
         let a, b, c, d, e: URL
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e"] {
+                #expect(
+                    json[key].url(fallback: .init(string: "/")!) ==
+                        json[key].url(.compatible, fallback: .init(string: "/")!)
+                )
+            }
+
             a = json.a.url(.compatible)
             b = json.b.url(.compatible)
             c = json.c.url(.compatible)

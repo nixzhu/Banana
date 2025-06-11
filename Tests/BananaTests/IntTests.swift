@@ -21,6 +21,10 @@ import Testing
         let a, b, c, d, e, f, g, h, i, j: Int?
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"] {
+                #expect(json[key].int() == json[key].int(.strict))
+            }
+
             a = json.a.int(.strict)
             b = json.b.int(.strict)
             c = json.c.int(.strict)
@@ -67,6 +71,10 @@ import Testing
         let a, b, c, d, e, f, g, h, i, j: Int
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"] {
+                #expect(json[key].int(fallback: 0) == json[key].int(.strict, fallback: 0))
+            }
+
             a = json.a.int(.strict)
             b = json.b.int(.strict)
             c = json.c.int(.strict)

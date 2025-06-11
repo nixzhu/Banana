@@ -23,6 +23,10 @@ import Testing
         let a, b, c, d, e, f, g, h, i, j, k, l: Bool?
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] {
+                #expect(json[key].bool() == json[key].bool(.strict))
+            }
+
             a = json.a.bool(.strict)
             b = json.b.bool(.strict)
             c = json.c.bool(.strict)
@@ -75,6 +79,10 @@ import Testing
         let a, b, c, d, e, f, g, h, i, j, k, l: Bool
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] {
+                #expect(json[key].bool(fallback: false) == json[key].bool(.strict, fallback: false))
+            }
+
             a = json.a.bool(.strict)
             b = json.b.bool(.strict)
             c = json.c.bool(.strict)

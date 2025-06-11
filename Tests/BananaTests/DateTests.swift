@@ -17,6 +17,10 @@ import Testing
         let a, b, c, d, e: Date?
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e"] {
+                #expect(json[key].date() == json[key].date(.iso8601))
+            }
+
             a = json.a.date(.iso8601)
             b = json.b.date(.iso8601)
             c = json.c.date(.iso8601)
@@ -53,6 +57,13 @@ import Testing
         let a1, a2, b1, b2, c, d, e, f, g: Date
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e"] {
+                #expect(
+                    json[key].date(fallback: .distantPast) ==
+                        json[key].date(.iso8601, fallback: .distantPast)
+                )
+            }
+
             a1 = json.a1.date(.iso8601)
             a2 = json.a2.date(.iso8601)
             b1 = json.b1.date(.iso8601)

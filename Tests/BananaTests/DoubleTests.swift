@@ -18,6 +18,10 @@ import Testing
         let a, b, c, d, e, f, g: Double?
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e", "f", "g"] {
+                #expect(json[key].double() == json[key].double(.strict))
+            }
+
             a = json.a.double(.strict)
             b = json.b.double(.strict)
             c = json.c.double(.strict)
@@ -56,6 +60,10 @@ import Testing
         let a, b, c, d, e, f, g: Double
 
         init(json: BananaJSON) {
+            for key in ["a", "b", "c", "d", "e", "f", "g"] {
+                #expect(json[key].double(fallback: 0) == json[key].double(.strict, fallback: 0))
+            }
+
             a = json.a.double(.strict)
             b = json.b.double(.strict)
             c = json.c.double(.strict)
