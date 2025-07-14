@@ -2,21 +2,15 @@ import Foundation
 
 extension BananaJSON {
     public enum URLMode {
-        case compatible
+        case normal
         case custom((BananaJSON) -> URL?)
     }
 
-    public func url(_ mode: URLMode = .compatible) -> URL? {
+    public func url(_ mode: URLMode = .normal) -> URL? {
         switch mode {
-        case .compatible:
+        case .normal:
             if let string = rawString() {
                 if let url = URL(string: string) {
-                    return url
-                }
-
-                if let encoded = string.addingPercentEncoding(withAllowedCharacters: .ananda_url),
-                   let url = URL(string: encoded)
-                {
                     return url
                 }
             }
@@ -29,17 +23,7 @@ extension BananaJSON {
         return nil
     }
 
-    public func url(_ mode: URLMode = .compatible, fallback: URL = .init(string: "/")!) -> URL {
+    public func url(_ mode: URLMode = .normal, fallback: URL = .init(string: "/")!) -> URL {
         url(mode) ?? fallback
     }
-}
-
-extension CharacterSet: @retroactive @unchecked Sendable {
-    fileprivate static let ananda_url: Self = {
-        var set = CharacterSet.urlQueryAllowed
-        set.insert("#")
-        set.formUnion(.urlPathAllowed)
-
-        return set
-    }()
 }

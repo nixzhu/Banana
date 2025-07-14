@@ -2,43 +2,15 @@ import yyjson
 
 extension BananaJSON {
     public enum BoolMode {
-        case strict
-        case int
-        case compatible
+        case normal
         case custom((BananaJSON) -> Bool?)
     }
 
-    public func bool(_ mode: BoolMode = .strict) -> Bool? {
+    public func bool(_ mode: BoolMode = .normal) -> Bool? {
         switch mode {
-        case .strict:
+        case .normal:
             if let bool = rawBool() {
                 return bool
-            }
-        case .int:
-            if let int = rawInt() {
-                switch int {
-                case 0:
-                    return false
-                case 1:
-                    return true
-                default:
-                    break
-                }
-            }
-        case .compatible:
-            if let bool = rawBool() {
-                return bool
-            }
-
-            if let int = rawInt() {
-                switch int {
-                case 0:
-                    return false
-                case 1:
-                    return true
-                default:
-                    break
-                }
             }
         case .custom(let parse):
             if let value = parse(self) {
@@ -49,7 +21,7 @@ extension BananaJSON {
         return nil
     }
 
-    public func bool(_ mode: BoolMode = .strict, fallback: Bool = false) -> Bool {
+    public func bool(_ mode: BoolMode = .normal, fallback: Bool = false) -> Bool {
         bool(mode) ?? fallback
     }
 }

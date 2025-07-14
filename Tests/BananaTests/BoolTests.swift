@@ -1,7 +1,7 @@
 import Testing
 @testable import Banana
 
-@Test func boolIfPresent_strict() async throws {
+@Test func boolIfPresent_normal() async throws {
     let jsonString = """
         {
             "a": true,
@@ -24,21 +24,21 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] {
-                #expect(json[key].bool() == json[key].bool(.strict))
+                #expect(json[key].bool() == json[key].bool(.normal))
             }
 
-            a = json.a.bool(.strict)
-            b = json.b.bool(.strict)
-            c = json.c.bool(.strict)
-            d = json.d.bool(.strict)
-            e = json.e.bool(.strict)
-            f = json.f.bool(.strict)
-            g = json.g.bool(.strict)
-            h = json.h.bool(.strict)
-            i = json.i.bool(.strict)
-            j = json.j.bool(.strict)
-            k = json.k.bool(.strict)
-            l = json.l.bool(.strict)
+            a = json.a.bool(.normal)
+            b = json.b.bool(.normal)
+            c = json.c.bool(.normal)
+            d = json.d.bool(.normal)
+            e = json.e.bool(.normal)
+            f = json.f.bool(.normal)
+            g = json.g.bool(.normal)
+            h = json.h.bool(.normal)
+            i = json.i.bool(.normal)
+            j = json.j.bool(.normal)
+            k = json.k.bool(.normal)
+            l = json.l.bool(.normal)
         }
     }
 
@@ -57,7 +57,7 @@ import Testing
     #expect(m.l == nil)
 }
 
-@Test func bool_strict() async throws {
+@Test func bool_normal() async throws {
     let jsonString = """
         {
             "a": true,
@@ -80,21 +80,21 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] {
-                #expect(json[key].bool(fallback: false) == json[key].bool(.strict, fallback: false))
+                #expect(json[key].bool(fallback: false) == json[key].bool(.normal, fallback: false))
             }
 
-            a = json.a.bool(.strict)
-            b = json.b.bool(.strict)
-            c = json.c.bool(.strict)
-            d = json.d.bool(.strict)
-            e = json.e.bool(.strict)
-            f = json.f.bool(.strict)
-            g = json.g.bool(.strict)
-            h = json.h.bool(.strict)
-            i = json.i.bool(.strict)
-            j = json.j.bool(.strict)
-            k = json.k.bool(.strict)
-            l = json.l.bool(.strict, fallback: true)
+            a = json.a.bool(.normal)
+            b = json.b.bool(.normal)
+            c = json.c.bool(.normal)
+            d = json.d.bool(.normal)
+            e = json.e.bool(.normal)
+            f = json.f.bool(.normal)
+            g = json.g.bool(.normal)
+            h = json.h.bool(.normal)
+            i = json.i.bool(.normal)
+            j = json.j.bool(.normal)
+            k = json.k.bool(.normal)
+            l = json.l.bool(.normal, fallback: true)
         }
     }
 
@@ -103,212 +103,6 @@ import Testing
     #expect(m.b == false)
     #expect(m.c == false)
     #expect(m.d == false)
-    #expect(m.e == false)
-    #expect(m.f == false)
-    #expect(m.g == false)
-    #expect(m.h == false)
-    #expect(m.i == false)
-    #expect(m.j == false)
-    #expect(m.k == false)
-    #expect(m.l == true)
-}
-
-@Test func boolIfPresent_int() async throws {
-    let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": ""
-        }
-        """
-    struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l: Bool?
-
-        init(json: BananaJSON) {
-            a = json.a.bool(.int)
-            b = json.b.bool(.int)
-            c = json.c.bool(.int)
-            d = json.d.bool(.int)
-            e = json.e.bool(.int)
-            f = json.f.bool(.int)
-            g = json.g.bool(.int)
-            h = json.h.bool(.int)
-            i = json.i.bool(.int)
-            j = json.j.bool(.int)
-            k = json.k.bool(.int)
-            l = json.l.bool(.int)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-    #expect(m.a == nil)
-    #expect(m.b == nil)
-    #expect(m.c == false)
-    #expect(m.d == true)
-    #expect(m.e == nil)
-    #expect(m.f == nil)
-    #expect(m.g == nil)
-    #expect(m.h == nil)
-    #expect(m.i == nil)
-    #expect(m.j == nil)
-    #expect(m.k == nil)
-    #expect(m.l == nil)
-}
-
-@Test func bool_int() async throws {
-    let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": ""
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l: Bool
-
-        init(json: BananaJSON) {
-            a = json.a.bool(.int)
-            b = json.b.bool(.int)
-            c = json.c.bool(.int)
-            d = json.d.bool(.int)
-            e = json.e.bool(.int)
-            f = json.f.bool(.int)
-            g = json.g.bool(.int)
-            h = json.h.bool(.int)
-            i = json.i.bool(.int)
-            j = json.j.bool(.int)
-            k = json.k.bool(.int)
-            l = json.l.bool(.int, fallback: true)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-    #expect(m.a == false)
-    #expect(m.b == false)
-    #expect(m.c == false)
-    #expect(m.d == true)
-    #expect(m.e == false)
-    #expect(m.f == false)
-    #expect(m.g == false)
-    #expect(m.h == false)
-    #expect(m.i == false)
-    #expect(m.j == false)
-    #expect(m.k == false)
-    #expect(m.l == true)
-}
-
-@Test func boolIfPresent_compatible() async throws {
-    let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": ""
-        }
-        """
-    struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l: Bool?
-
-        init(json: BananaJSON) {
-            a = json.a.bool(.compatible)
-            b = json.b.bool(.compatible)
-            c = json.c.bool(.compatible)
-            d = json.d.bool(.compatible)
-            e = json.e.bool(.compatible)
-            f = json.f.bool(.compatible)
-            g = json.g.bool(.compatible)
-            h = json.h.bool(.compatible)
-            i = json.i.bool(.compatible)
-            j = json.j.bool(.compatible)
-            k = json.k.bool(.compatible)
-            l = json.l.bool(.compatible)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-    #expect(m.a == true)
-    #expect(m.b == false)
-    #expect(m.c == false)
-    #expect(m.d == true)
-    #expect(m.e == nil)
-    #expect(m.f == nil)
-    #expect(m.g == nil)
-    #expect(m.h == nil)
-    #expect(m.i == nil)
-    #expect(m.j == nil)
-    #expect(m.k == nil)
-    #expect(m.l == nil)
-}
-
-@Test func bool_compatible() async throws {
-    let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": ""
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l: Bool
-
-        init(json: BananaJSON) {
-            a = json.a.bool(.compatible)
-            b = json.b.bool(.compatible)
-            c = json.c.bool(.compatible)
-            d = json.d.bool(.compatible)
-            e = json.e.bool(.compatible)
-            f = json.f.bool(.compatible)
-            g = json.g.bool(.compatible)
-            h = json.h.bool(.compatible)
-            i = json.i.bool(.compatible)
-            j = json.j.bool(.compatible)
-            k = json.k.bool(.compatible)
-            l = json.l.bool(.compatible, fallback: true)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-    #expect(m.a == true)
-    #expect(m.b == false)
-    #expect(m.c == false)
-    #expect(m.d == true)
     #expect(m.e == false)
     #expect(m.f == false)
     #expect(m.g == false)

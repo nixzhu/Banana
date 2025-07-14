@@ -1,7 +1,7 @@
 import Testing
 @testable import Banana
 
-@Test func doubleIfPresent_strict() async throws {
+@Test func doubleIfPresent_normal() async throws {
     let jsonString = """
         {
             "a": true,
@@ -19,16 +19,16 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e", "f", "g"] {
-                #expect(json[key].double() == json[key].double(.strict))
+                #expect(json[key].double() == json[key].double(.normal))
             }
 
-            a = json.a.double(.strict)
-            b = json.b.double(.strict)
-            c = json.c.double(.strict)
-            d = json.d.double(.strict)
-            e = json.e.double(.strict)
-            f = json.f.double(.strict)
-            g = json.g.double(.strict)
+            a = json.a.double(.normal)
+            b = json.b.double(.normal)
+            c = json.c.double(.normal)
+            d = json.d.double(.normal)
+            e = json.e.double(.normal)
+            f = json.f.double(.normal)
+            g = json.g.double(.normal)
         }
     }
 
@@ -43,7 +43,7 @@ import Testing
     #expect(m.g == nil)
 }
 
-@Test func double_strict() async throws {
+@Test func double_normal() async throws {
     let jsonString = """
         {
             "a": true,
@@ -61,16 +61,16 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e", "f", "g"] {
-                #expect(json[key].double(fallback: 0) == json[key].double(.strict, fallback: 0))
+                #expect(json[key].double(fallback: 0) == json[key].double(.normal, fallback: 0))
             }
 
-            a = json.a.double(.strict)
-            b = json.b.double(.strict)
-            c = json.c.double(.strict)
-            d = json.d.double(.strict)
-            e = json.e.double(.strict)
-            f = json.f.double(.strict, fallback: 2.2)
-            g = json.g.double(.strict)
+            a = json.a.double(.normal)
+            b = json.b.double(.normal)
+            c = json.c.double(.normal)
+            d = json.d.double(.normal)
+            e = json.e.double(.normal)
+            f = json.f.double(.normal, fallback: 2.2)
+            g = json.g.double(.normal)
         }
     }
 
@@ -85,145 +85,7 @@ import Testing
     #expect(m.g == 3.0)
 }
 
-@Test func doubleIfPresent_string() async throws {
-    let jsonString = """
-        {
-            "a": "3.14",
-            "b": "apple",
-            "c": "",
-            "d": "0",
-            "e": -2.5,
-            "f": 4
-        }
-        """
 
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Double?
-
-        init(json: BananaJSON) {
-            a = json.a.double(.string)
-            b = json.b.double(.string)
-            c = json.c.double(.string)
-            d = json.d.double(.string)
-            e = json.e.double(.string)
-            f = json.f.double(.string)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == 3.14)
-    #expect(m.b == nil)
-    #expect(m.c == nil)
-    #expect(m.d == 0.0)
-    #expect(m.e == nil)
-    #expect(m.f == nil)
-}
-
-@Test func double_string() async throws {
-    let jsonString = """
-        {
-            "a": "3.14",
-            "b": "apple",
-            "c": "",
-            "d": "0",
-            "e": -2.5,
-            "f": 4
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Double
-
-        init(json: BananaJSON) {
-            a = json.a.double(.string)
-            b = json.b.double(.string, fallback: -1.1)
-            c = json.c.double(.string)
-            d = json.d.double(.string)
-            e = json.e.double(.string)
-            f = json.f.double(.string)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == 3.14)
-    #expect(m.b == -1.1)
-    #expect(m.c == 0.0)
-    #expect(m.d == 0.0)
-    #expect(m.e == 0.0)
-    #expect(m.f == 0.0)
-}
-
-@Test func doubleIfPresent_compatible() async throws {
-    let jsonString = """
-        {
-            "a": 2.71,
-            "b": "1.618",
-            "c": "apple",
-            "d": 0,
-            "e": "",
-            "f": false
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Double?
-
-        init(json: BananaJSON) {
-            a = json.a.double(.compatible)
-            b = json.b.double(.compatible)
-            c = json.c.double(.compatible)
-            d = json.d.double(.compatible)
-            e = json.e.double(.compatible)
-            f = json.f.double(.compatible)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == 2.71)
-    #expect(m.b == 1.618)
-    #expect(m.c == nil)
-    #expect(m.d == 0.0)
-    #expect(m.e == nil)
-    #expect(m.f == nil)
-}
-
-@Test func double_compatible() async throws {
-    let jsonString = """
-        {
-            "a": 2.71,
-            "b": "1.618",
-            "c": "apple",
-            "d": 0,
-            "e": "",
-            "f": false
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Double
-
-        init(json: BananaJSON) {
-            a = json.a.double(.compatible)
-            b = json.b.double(.compatible)
-            c = json.c.double(.compatible, fallback: -9.9)
-            d = json.d.double(.compatible)
-            e = json.e.double(.compatible)
-            f = json.f.double(.compatible)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == 2.71)
-    #expect(m.b == 1.618)
-    #expect(m.c == -9.9)
-    #expect(m.d == 0.0)
-    #expect(m.e == 0.0)
-    #expect(m.f == 0.0)
-}
 
 @Test func doubleIfPresent_custom() async throws {
     let jsonString = """

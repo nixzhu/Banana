@@ -1,7 +1,7 @@
 import Testing
 @testable import Banana
 
-@Test func intIfPresent_strict() async throws {
+@Test func intIfPresent_normal() async throws {
     let jsonString = """
         {
             "a": true,
@@ -22,19 +22,19 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"] {
-                #expect(json[key].int() == json[key].int(.strict))
+                #expect(json[key].int() == json[key].int(.normal))
             }
 
-            a = json.a.int(.strict)
-            b = json.b.int(.strict)
-            c = json.c.int(.strict)
-            d = json.d.int(.strict)
-            e = json.e.int(.strict)
-            f = json.f.int(.strict)
-            g = json.g.int(.strict)
-            h = json.h.int(.strict)
-            i = json.i.int(.strict)
-            j = json.j.int(.strict)
+            a = json.a.int(.normal)
+            b = json.b.int(.normal)
+            c = json.c.int(.normal)
+            d = json.d.int(.normal)
+            e = json.e.int(.normal)
+            f = json.f.int(.normal)
+            g = json.g.int(.normal)
+            h = json.h.int(.normal)
+            i = json.i.int(.normal)
+            j = json.j.int(.normal)
         }
     }
 
@@ -51,7 +51,7 @@ import Testing
     #expect(m.j == nil)
 }
 
-@Test func int_strict() async throws {
+@Test func int_normal() async throws {
     let jsonString = """
         {
             "a": true,
@@ -72,19 +72,19 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"] {
-                #expect(json[key].int(fallback: 0) == json[key].int(.strict, fallback: 0))
+                #expect(json[key].int(fallback: 0) == json[key].int(.normal, fallback: 0))
             }
 
-            a = json.a.int(.strict)
-            b = json.b.int(.strict)
-            c = json.c.int(.strict)
-            d = json.d.int(.strict)
-            e = json.e.int(.strict)
-            f = json.f.int(.strict)
-            g = json.g.int(.strict)
-            h = json.h.int(.strict)
-            i = json.i.int(.strict)
-            j = json.j.int(.strict, fallback: 42)
+            a = json.a.int(.normal)
+            b = json.b.int(.normal)
+            c = json.c.int(.normal)
+            d = json.d.int(.normal)
+            e = json.e.int(.normal)
+            f = json.f.int(.normal)
+            g = json.g.int(.normal)
+            h = json.h.int(.normal)
+            i = json.i.int(.normal)
+            j = json.j.int(.normal, fallback: 42)
         }
     }
 
@@ -100,145 +100,6 @@ import Testing
     #expect(m.h == 0)
     #expect(m.i == 0)
     #expect(m.j == 42)
-}
-
-@Test func intIfPresent_string() async throws {
-    let jsonString = """
-        {
-            "a": "123",
-            "b": "apple",
-            "c": "0",
-            "d": "-10",
-            "e": "",
-            "f": 55
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Int?
-
-        init(json: BananaJSON) {
-            a = json.a.int(.string)
-            b = json.b.int(.string)
-            c = json.c.int(.string)
-            d = json.d.int(.string)
-            e = json.e.int(.string)
-            f = json.f.int(.string)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == 123)
-    #expect(m.b == nil)
-    #expect(m.c == 0)
-    #expect(m.d == -10)
-    #expect(m.e == nil)
-    #expect(m.f == nil)
-}
-
-@Test func int_string() async throws {
-    let jsonString = """
-        {
-            "a": "123",
-            "b": "apple",
-            "c": "0",
-            "d": "-10",
-            "e": "",
-            "f": 55
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Int
-
-        init(json: BananaJSON) {
-            a = json.a.int(.string)
-            b = json.b.int(.string, fallback: -1)
-            c = json.c.int(.string)
-            d = json.d.int(.string)
-            e = json.e.int(.string)
-            f = json.f.int(.string)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-    #expect(m.a == 123)
-    #expect(m.b == -1)
-    #expect(m.c == 0)
-    #expect(m.d == -10)
-    #expect(m.e == 0)
-    #expect(m.f == 0)
-}
-
-@Test func intIfPresent_compatible() async throws {
-    let jsonString = """
-        {
-            "a": 10,
-            "b": "20",
-            "c": "apple",
-            "d": 0,
-            "e": "",
-            "f": 3.14
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Int?
-
-        init(json: BananaJSON) {
-            a = json.a.int(.compatible)
-            b = json.b.int(.compatible)
-            c = json.c.int(.compatible)
-            d = json.d.int(.compatible)
-            e = json.e.int(.compatible)
-            f = json.f.int(.compatible)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == 10)
-    #expect(m.b == 20)
-    #expect(m.c == nil)
-    #expect(m.d == 0)
-    #expect(m.e == nil)
-    #expect(m.f == nil)
-}
-
-@Test func int_compatible() async throws {
-    let jsonString = """
-        {
-            "a": 10,
-            "b": "20",
-            "c": "apple",
-            "d": 0,
-            "e": "",
-            "f": 3.14
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e, f: Int
-
-        init(json: BananaJSON) {
-            a = json.a.int(.compatible)
-            b = json.b.int(.compatible)
-            c = json.c.int(.compatible, fallback: -5)
-            d = json.d.int(.compatible)
-            e = json.e.int(.compatible)
-            f = json.f.int(.compatible)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == 10)
-    #expect(m.b == 20)
-    #expect(m.c == -5)
-    #expect(m.d == 0)
-    #expect(m.e == 0)
-    #expect(m.f == 0)
 }
 
 @Test func intIfPresent_custom() async throws {

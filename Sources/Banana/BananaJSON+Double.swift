@@ -2,28 +2,14 @@ import yyjson
 
 extension BananaJSON {
     public enum DoubleMode {
-        case strict
-        case string
-        case compatible
+        case normal
         case custom((BananaJSON) -> Double?)
     }
 
-    public func double(_ mode: DoubleMode = .strict) -> Double? {
+    public func double(_ mode: DoubleMode = .normal) -> Double? {
         switch mode {
-        case .strict:
+        case .normal:
             if let double = rawDouble() {
-                return double
-            }
-        case .string:
-            if let string = rawString(), let double = Double(string) {
-                return double
-            }
-        case .compatible:
-            if let double = rawDouble() {
-                return double
-            }
-
-            if let string = rawString(), let double = Double(string) {
                 return double
             }
         case .custom(let parse):
@@ -35,7 +21,7 @@ extension BananaJSON {
         return nil
     }
 
-    public func double(_ mode: DoubleMode = .strict, fallback: Double = 0) -> Double {
+    public func double(_ mode: DoubleMode = .normal, fallback: Double = 0) -> Double {
         double(mode) ?? fallback
     }
 }

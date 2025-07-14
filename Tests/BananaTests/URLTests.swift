@@ -2,7 +2,7 @@ import Foundation
 import Testing
 @testable import Banana
 
-@Test func urlIfPresent_compatible() async throws {
+@Test func urlIfPresent_normal() async throws {
     let jsonString = """
         {
             "a": "https://example.com",
@@ -18,14 +18,14 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e"] {
-                #expect(json[key].url() == json[key].url(.compatible))
+                #expect(json[key].url() == json[key].url(.normal))
             }
 
-            a = json.a.url(.compatible)
-            b = json.b.url(.compatible)
-            c = json.c.url(.compatible)
-            d = json.d.url(.compatible)
-            e = json.e.url(.compatible)
+            a = json.a.url(.normal)
+            b = json.b.url(.normal)
+            c = json.c.url(.normal)
+            d = json.d.url(.normal)
+            e = json.e.url(.normal)
         }
     }
 
@@ -37,7 +37,7 @@ import Testing
     #expect(m.e == nil)
 }
 
-@Test func url_compatible() async throws {
+@Test func url_normal() async throws {
     let jsonString = """
         {
             "a": "https://example.com",
@@ -55,15 +55,15 @@ import Testing
             for key in ["a", "b", "c", "d", "e"] {
                 #expect(
                     json[key].url(fallback: .init(string: "/")!) ==
-                        json[key].url(.compatible, fallback: .init(string: "/")!)
+                        json[key].url(.normal, fallback: .init(string: "/")!)
                 )
             }
 
-            a = json.a.url(.compatible)
-            b = json.b.url(.compatible)
-            c = json.c.url(.compatible)
-            d = json.d.url(.compatible)
-            e = json.e.url(.compatible, fallback: .init(string: "/fallback")!)
+            a = json.a.url(.normal)
+            b = json.b.url(.normal)
+            c = json.c.url(.normal)
+            d = json.d.url(.normal)
+            e = json.e.url(.normal, fallback: .init(string: "/fallback")!)
         }
     }
 

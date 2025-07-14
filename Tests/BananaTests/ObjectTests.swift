@@ -26,7 +26,17 @@ import Testing
                 let createdAt: Date
 
                 init(json: BananaJSON) {
-                    id = json.id.int(.compatible)
+                    id = json.id.int(.custom({ json in
+                        if let int = json.rawInt() {
+                            return int
+                        }
+
+                        if let string = json.rawString(), let int = Int(string) {
+                            return int
+                        }
+
+                        return nil
+                    }))
                     content = json.content.string()
                     isProtected = json.is_protected.bool(.custom(parseBool))
                     createdAt = json.created_at.date(.custom(parseDate))

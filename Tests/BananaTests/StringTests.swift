@@ -1,7 +1,7 @@
 import Testing
 @testable import Banana
 
-@Test func stringIfPresent_strict() async throws {
+@Test func stringIfPresent_normal() async throws {
     let jsonString = """
         {
             "a": "apple",
@@ -17,14 +17,14 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e"] {
-                #expect(json[key].string() == json[key].string(.strict))
+                #expect(json[key].string() == json[key].string(.normal))
             }
 
-            a = json.a.string(.strict)
-            b = json.b.string(.strict)
-            c = json.c.string(.strict)
-            d = json.d.string(.strict)
-            e = json.e.string(.strict)
+            a = json.a.string(.normal)
+            b = json.b.string(.normal)
+            c = json.c.string(.normal)
+            d = json.d.string(.normal)
+            e = json.e.string(.normal)
         }
     }
 
@@ -37,7 +37,7 @@ import Testing
     #expect(m.e == nil)
 }
 
-@Test func string_strict() async throws {
+@Test func string_normal() async throws {
     let jsonString = """
         {
             "a": "apple",
@@ -53,14 +53,14 @@ import Testing
 
         init(json: BananaJSON) {
             for key in ["a", "b", "c", "d", "e"] {
-                #expect(json[key].string(fallback: "") == json[key].string(.strict, fallback: ""))
+                #expect(json[key].string(fallback: "") == json[key].string(.normal, fallback: ""))
             }
 
-            a = json.a.string(.strict)
-            b = json.b.string(.strict)
-            c = json.c.string(.strict)
-            d = json.d.string(.strict)
-            e = json.e.string(.strict, fallback: "fallback")
+            a = json.a.string(.normal)
+            b = json.b.string(.normal)
+            c = json.c.string(.normal)
+            d = json.d.string(.normal)
+            e = json.e.string(.normal, fallback: "fallback")
         }
     }
 
@@ -73,133 +73,7 @@ import Testing
     #expect(m.e == "fallback")
 }
 
-@Test func stringIfPresent_int() async throws {
-    let jsonString = """
-        {
-            "a": "apple",
-            "b": 123,
-            "c": "",
-            "d": 0,
-            "e": true
-        }
-        """
 
-    struct Model: BananaModel {
-        let a, b, c, d, e: String?
-
-        init(json: BananaJSON) {
-            a = json.a.string(.int)
-            b = json.b.string(.int)
-            c = json.c.string(.int)
-            d = json.d.string(.int)
-            e = json.e.string(.int)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == nil)
-    #expect(m.b == "123")
-    #expect(m.c == nil)
-    #expect(m.d == "0")
-    #expect(m.e == nil)
-}
-
-@Test func string_int() async throws {
-    let jsonString = """
-        {
-            "a": "apple",
-            "b": 123,
-            "c": "",
-            "d": 0,
-            "e": true
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e: String
-
-        init(json: BananaJSON) {
-            a = json.a.string(.int)
-            b = json.b.string(.int)
-            c = json.c.string(.int, fallback: "<nil>")
-            d = json.d.string(.int)
-            e = json.e.string(.int, fallback: "yes")
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == "")
-    #expect(m.b == "123")
-    #expect(m.c == "<nil>")
-    #expect(m.d == "0")
-    #expect(m.e == "yes")
-}
-
-@Test func stringIfPresent_compatible() async throws {
-    let jsonString = """
-        {
-            "a": "apple",
-            "b": 123,
-            "c": "",
-            "d": 0,
-            "e": true
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e: String?
-
-        init(json: BananaJSON) {
-            a = json.a.string(.compatible)
-            b = json.b.string(.compatible)
-            c = json.c.string(.compatible)
-            d = json.d.string(.compatible)
-            e = json.e.string(.compatible)
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == "apple")
-    #expect(m.b == "123")
-    #expect(m.c == "")
-    #expect(m.d == "0")
-    #expect(m.e == nil)
-}
-
-@Test func string_compatible() async throws {
-    let jsonString = """
-        {
-            "a": "apple",
-            "b": 123,
-            "c": "",
-            "d": 0,
-            "e": true
-        }
-        """
-
-    struct Model: BananaModel {
-        let a, b, c, d, e: String
-
-        init(json: BananaJSON) {
-            a = json.a.string(.compatible)
-            b = json.b.string(.compatible)
-            c = json.c.string(.compatible)
-            d = json.d.string(.compatible)
-            e = json.e.string(.compatible, fallback: "nope")
-        }
-    }
-
-    let m = Model.decode(from: jsonString)
-
-    #expect(m.a == "apple")
-    #expect(m.b == "123")
-    #expect(m.c == "")
-    #expect(m.d == "0")
-    #expect(m.e == "nope")
-}
 
 @Test func stringIfPresent_custom() async throws {
     let jsonString = """
