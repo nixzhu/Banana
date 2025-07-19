@@ -3,42 +3,49 @@ import Testing
 
 @Test func boolIfPresent_normal() async throws {
     let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": ""
-        }
-        """
+    {
+        "a": true,
+        "b": false,
+        "c": 0,
+        "d": 1,
+        "e": -2,
+        "f": 99.9,
+        "g": "true",
+        "h": "false",
+        "i": "apple",
+        "j": "0",
+        "k": "1",
+        "l": ""
+    }
+    """
 
     struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l: Bool?
+        let a: Bool?
+        let b: Bool?
+        let c: Bool?
+        let d: Bool?
+        let e: Bool?
+        let f: Bool?
+        let g: Bool?
+        let h: Bool?
+        let i: Bool?
+        let j: Bool?
+        let k: Bool?
+        let l: Bool?
 
         init(json: BananaJSON) {
-            for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] {
-                #expect(json[key].bool() == json[key].bool(.normal))
-            }
-
-            a = json.a.bool(.normal)
-            b = json.b.bool(.normal)
-            c = json.c.bool(.normal)
-            d = json.d.bool(.normal)
-            e = json.e.bool(.normal)
-            f = json.f.bool(.normal)
-            g = json.g.bool(.normal)
-            h = json.h.bool(.normal)
-            i = json.i.bool(.normal)
-            j = json.j.bool(.normal)
-            k = json.k.bool(.normal)
-            l = json.l.bool(.normal)
+            a = json.a.bool()
+            b = json.b.bool()
+            c = json.c.bool()
+            d = json.d.bool()
+            e = json.e.bool()
+            f = json.f.bool()
+            g = json.g.bool()
+            h = json.h.bool()
+            i = json.i.bool()
+            j = json.j.bool()
+            k = json.k.bool()
+            l = json.l.bool()
         }
     }
 
@@ -59,42 +66,49 @@ import Testing
 
 @Test func bool_normal() async throws {
     let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": ""
-        }
-        """
+    {
+        "a": true,
+        "b": false,
+        "c": 0,
+        "d": 1,
+        "e": -2,
+        "f": 99.9,
+        "g": "true",
+        "h": "false",
+        "i": "apple",
+        "j": "0",
+        "k": "1",
+        "l": ""
+    }
+    """
 
     struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l: Bool
+        let a: Bool
+        let b: Bool
+        let c: Bool
+        let d: Bool
+        let e: Bool
+        let f: Bool
+        let g: Bool
+        let h: Bool
+        let i: Bool
+        let j: Bool
+        let k: Bool
+        let l: Bool
 
         init(json: BananaJSON) {
-            for key in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"] {
-                #expect(json[key].bool(fallback: false) == json[key].bool(.normal, fallback: false))
-            }
-
-            a = json.a.bool(.normal)
-            b = json.b.bool(.normal)
-            c = json.c.bool(.normal)
-            d = json.d.bool(.normal)
-            e = json.e.bool(.normal)
-            f = json.f.bool(.normal)
-            g = json.g.bool(.normal)
-            h = json.h.bool(.normal)
-            i = json.i.bool(.normal)
-            j = json.j.bool(.normal)
-            k = json.k.bool(.normal)
-            l = json.l.bool(.normal, fallback: true)
+            a = json.a.bool()
+            b = json.b.bool()
+            c = json.c.bool()
+            d = json.d.bool()
+            e = json.e.bool()
+            f = json.f.bool()
+            g = json.g.bool()
+            h = json.h.bool()
+            i = json.i.bool()
+            j = json.j.bool()
+            k = json.k.bool()
+            l = json.l.bool(fallback: true)
         }
     }
 
@@ -115,39 +129,51 @@ import Testing
 
 @Test func boolIfPresent_custom() async throws {
     let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": "2",
-            "m": ""
-        }
-        """
+    {
+        "a": true,
+        "b": false,
+        "c": 0,
+        "d": 1,
+        "e": -2,
+        "f": 99.9,
+        "g": "true",
+        "h": "false",
+        "i": "apple",
+        "j": "0",
+        "k": "1",
+        "l": "2",
+        "m": ""
+    }
+    """
     struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l, m: Bool?
+        let a: Bool?
+        let b: Bool?
+        let c: Bool?
+        let d: Bool?
+        let e: Bool?
+        let f: Bool?
+        let g: Bool?
+        let h: Bool?
+        let i: Bool?
+        let j: Bool?
+        let k: Bool?
+        let l: Bool?
+        let m: Bool?
 
         init(json: BananaJSON) {
-            a = json.a.bool(.custom(parseBool))
-            b = json.b.bool(.custom(parseBool))
-            c = json.c.bool(.custom(parseBool))
-            d = json.d.bool(.custom(parseBool))
-            e = json.e.bool(.custom(parseBool))
-            f = json.f.bool(.custom(parseBool))
-            g = json.g.bool(.custom(parseBool))
-            h = json.h.bool(.custom(parseBool))
-            i = json.i.bool(.custom(parseBool))
-            j = json.j.bool(.custom(parseBool))
-            k = json.k.bool(.custom(parseBool))
-            l = json.l.bool(.custom(parseBool))
-            m = json.m.bool(.custom(parseBool))
+            a = json.a.parse(customBool)
+            b = json.b.parse(customBool)
+            c = json.c.parse(customBool)
+            d = json.d.parse(customBool)
+            e = json.e.parse(customBool)
+            f = json.f.parse(customBool)
+            g = json.g.parse(customBool)
+            h = json.h.parse(customBool)
+            i = json.i.parse(customBool)
+            j = json.j.parse(customBool)
+            k = json.k.parse(customBool)
+            l = json.l.parse(customBool)
+            m = json.m.parse(customBool)
         }
     }
 
@@ -169,40 +195,52 @@ import Testing
 
 @Test func bool_custom() async throws {
     let jsonString = """
-        {
-            "a": true,
-            "b": false,
-            "c": 0,
-            "d": 1,
-            "e": -2,
-            "f": 99.9,
-            "g": "true",
-            "h": "false",
-            "i": "apple",
-            "j": "0",
-            "k": "1",
-            "l": "2",
-            "m": ""
-        }
-        """
+    {
+        "a": true,
+        "b": false,
+        "c": 0,
+        "d": 1,
+        "e": -2,
+        "f": 99.9,
+        "g": "true",
+        "h": "false",
+        "i": "apple",
+        "j": "0",
+        "k": "1",
+        "l": "2",
+        "m": ""
+    }
+    """
 
     struct Model: BananaModel {
-        let a, b, c, d, e, f, g, h, i, j, k, l, m: Bool
+        let a: Bool
+        let b: Bool
+        let c: Bool
+        let d: Bool
+        let e: Bool
+        let f: Bool
+        let g: Bool
+        let h: Bool
+        let i: Bool
+        let j: Bool
+        let k: Bool
+        let l: Bool
+        let m: Bool
 
         init(json: BananaJSON) {
-            a = json.a.bool(.custom(parseBool))
-            b = json.b.bool(.custom(parseBool))
-            c = json.c.bool(.custom(parseBool))
-            d = json.d.bool(.custom(parseBool))
-            e = json.e.bool(.custom(parseBool))
-            f = json.f.bool(.custom(parseBool))
-            g = json.g.bool(.custom(parseBool))
-            h = json.h.bool(.custom(parseBool))
-            i = json.i.bool(.custom(parseBool))
-            j = json.j.bool(.custom(parseBool))
-            k = json.k.bool(.custom(parseBool))
-            l = json.l.bool(.custom(parseBool))
-            m = json.m.bool(.custom(parseBool), fallback: true)
+            a = json.a.parse(customBool) ?? false
+            b = json.b.parse(customBool) ?? false
+            c = json.c.parse(customBool) ?? false
+            d = json.d.parse(customBool) ?? false
+            e = json.e.parse(customBool) ?? false
+            f = json.f.parse(customBool) ?? false
+            g = json.g.parse(customBool) ?? false
+            h = json.h.parse(customBool) ?? false
+            i = json.i.parse(customBool) ?? false
+            j = json.j.parse(customBool) ?? false
+            k = json.k.parse(customBool) ?? false
+            l = json.l.parse(customBool) ?? false
+            m = json.m.parse(customBool) ?? true
         }
     }
 
@@ -222,7 +260,7 @@ import Testing
     #expect(m.m == true)
 }
 
-private func parseBool(_ json: BananaJSON) -> Bool? {
+private func customBool(_ json: BananaJSON) -> Bool? {
     if let bool = json.rawBool() {
         return bool
     }

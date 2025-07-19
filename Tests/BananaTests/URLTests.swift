@@ -4,28 +4,28 @@ import Testing
 
 @Test func urlIfPresent_normal() async throws {
     let jsonString = """
-        {
-            "a": "https://example.com",
-            "b": "https://example.com/path?query=#frag",
-            "c": "https://example.com/苹果",
-            "d": 42,
-            "e": ""
-        }
-        """
+    {
+        "a": "https://example.com",
+        "b": "https://example.com/path?query=#frag",
+        "c": "https://example.com/苹果",
+        "d": 42,
+        "e": ""
+    }
+    """
 
     struct Model: BananaModel {
-        let a, b, c, d, e: URL?
+        let a: URL?
+        let b: URL?
+        let c: URL?
+        let d: URL?
+        let e: URL?
 
         init(json: BananaJSON) {
-            for key in ["a", "b", "c", "d", "e"] {
-                #expect(json[key].url() == json[key].url(.normal))
-            }
-
-            a = json.a.url(.normal)
-            b = json.b.url(.normal)
-            c = json.c.url(.normal)
-            d = json.d.url(.normal)
-            e = json.e.url(.normal)
+            a = json.a.url()
+            b = json.b.url()
+            c = json.c.url()
+            d = json.d.url()
+            e = json.e.url()
         }
     }
 
@@ -39,31 +39,28 @@ import Testing
 
 @Test func url_normal() async throws {
     let jsonString = """
-        {
-            "a": "https://example.com",
-            "b": "https://example.com/path?query=#frag",
-            "c": "https://example.com/苹果",
-            "d": 42,
-            "e": ""
-        }
-        """
+    {
+        "a": "https://example.com",
+        "b": "https://example.com/path?query=#frag",
+        "c": "https://example.com/苹果",
+        "d": 42,
+        "e": ""
+    }
+    """
 
     struct Model: BananaModel {
-        let a, b, c, d, e: URL
+        let a: URL
+        let b: URL
+        let c: URL
+        let d: URL
+        let e: URL
 
         init(json: BananaJSON) {
-            for key in ["a", "b", "c", "d", "e"] {
-                #expect(
-                    json[key].url(fallback: .init(string: "/")!) ==
-                        json[key].url(.normal, fallback: .init(string: "/")!)
-                )
-            }
-
-            a = json.a.url(.normal)
-            b = json.b.url(.normal)
-            c = json.c.url(.normal)
-            d = json.d.url(.normal)
-            e = json.e.url(.normal, fallback: .init(string: "/fallback")!)
+            a = json.a.url()
+            b = json.b.url()
+            c = json.c.url()
+            d = json.d.url()
+            e = json.e.url(fallback: .init(string: "/fallback")!)
         }
     }
 
@@ -77,14 +74,14 @@ import Testing
 
 @Test func urlIfPresent_custom() async throws {
     let jsonString = """
-        {
-            "a": "https://custom.com",
-            "b": 123,
-            "c": "bad//url"
-        }
-        """
+    {
+        "a": "https://custom.com",
+        "b": 123,
+        "c": "bad//url"
+    }
+    """
 
-    func parse(_ json: BananaJSON) -> URL? {
+    func customURL(_ json: BananaJSON) -> URL? {
         if let string = json.rawString(), string.hasPrefix("https") {
             return URL(string: string + "/ok")
         }
@@ -97,12 +94,14 @@ import Testing
     }
 
     struct Model: BananaModel {
-        let a, b, c: URL?
+        let a: URL?
+        let b: URL?
+        let c: URL?
 
         init(json: BananaJSON) {
-            a = json.a.url(.custom(parse))
-            b = json.b.url(.custom(parse))
-            c = json.c.url(.custom(parse))
+            a = json.a.parse(customURL)
+            b = json.b.parse(customURL)
+            c = json.c.parse(customURL)
         }
     }
 
@@ -114,32 +113,38 @@ import Testing
 
 @Test func url_custom() async throws {
     let jsonString = """
-        {
-            "a": "https://custom.com",
-            "b": 0,
-            "c": "bad//url"
-        }
-        """
+    {
+        "a": "https://custom.com",
+        "b": 0,
+        "c": "bad//url"
+    }
+    """
 
-    func parse(_ json: BananaJSON) -> URL? {
+    func customURL(_ json: BananaJSON) -> URL {
         if let string = json.rawString(), string.hasPrefix("https") {
-            return URL(string: string + "/ok")
+            if let url = URL(string: string + "/ok") {
+                return url
+            }
         }
 
         if let int = json.rawInt() {
-            return URL(string: "int://\(int)")
+            if let url = URL(string: "int://\(int)") {
+                return url
+            }
         }
 
-        return nil
+        return .init(string: "/fallback")!
     }
 
     struct Model: BananaModel {
-        let a, b, c: URL
+        let a: URL
+        let b: URL
+        let c: URL
 
         init(json: BananaJSON) {
-            a = json.a.url(.custom(parse), fallback: .init(string: "/fallback")!)
-            b = json.b.url(.custom(parse), fallback: .init(string: "/fallback")!)
-            c = json.c.url(.custom(parse), fallback: .init(string: "/fallback")!)
+            a = json.a.parse(customURL)
+            b = json.b.parse(customURL)
+            c = json.c.parse(customURL)
         }
     }
 

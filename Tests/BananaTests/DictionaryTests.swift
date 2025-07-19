@@ -13,17 +13,17 @@ import Testing
     }
 
     let jsonData = """
-        {
-            "a": {
-                "id": 0,
-                "name": "nix"
-            },
-            "b": {
-                "id": 1,
-                "name": "zhu"
-            }
+    {
+        "a": {
+            "id": 0,
+            "name": "nix"
+        },
+        "b": {
+            "id": 1,
+            "name": "zhu"
         }
-        """.data(using: .utf8)!
+    }
+    """.data(using: .utf8)!
 
     let info = [String: Item].decode(from: jsonData)
     #expect(info["a"]?.id == 0)
@@ -44,19 +44,19 @@ import Testing
     }
 
     let jsonData = """
-        {
-            "x": {
-                "a": {
-                    "id": 0,
-                    "name": "nix"
-                },
-                "b": {
-                    "id": 1,
-                    "name": "zhu"
-                }
+    {
+        "x": {
+            "a": {
+                "id": 0,
+                "name": "nix"
+            },
+            "b": {
+                "id": 1,
+                "name": "zhu"
             }
         }
-        """.data(using: .utf8)!
+    }
+    """.data(using: .utf8)!
 
     let info = [String: Item].decode(from: jsonData, path: ["x"])
     #expect(info["a"]?.id == 0)

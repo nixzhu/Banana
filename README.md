@@ -3,7 +3,7 @@
 
 # Banana
 
-A lightweight, high‑performance JSON decoding library powered by [yyjson](https://github.com/ibireme/yyjson).
+A lightweight, high-performance JSON decoding library powered by [yyjson](https://github.com/ibireme/yyjson).
 
 ## Example
 
@@ -35,7 +35,35 @@ Given the following JSON:
 }
 ```
 
-You can define your models by conforming to the `BananaModel` protocol:
+First, define your parsing functions, as shown in `BananaJSON+API.swift` from the tests:
+
+```swift
+import Banana
+
+extension BananaJSON {
+    func bool() -> Bool? {
+        rawBool()
+    }
+
+    func bool(fallback: Bool = false) -> Bool {
+        bool() ?? fallback
+    }
+}
+
+extension BananaJSON {
+    func int() -> Int? {
+        rawInt()
+    }
+
+    func int(fallback: Int = 0) -> Int {
+        int() ?? fallback
+    }
+}
+
+// ...
+```
+
+Then, you can define your models by conforming to the `BananaModel` protocol:
 
 ```swift
 import Foundation
@@ -88,31 +116,31 @@ extension Mastodon {
         init(json: BananaJSON) {
             id = json.id.int()
             content = json.content.string()
-            createdAt = json.created_at.date()
+            createdAt = json.created_at.iso8601Date()
         }
     }
 }
 ```
 
-To decode a `Mastodon` instance from the JSON string:
+To decode a `Mastodon` instance from a JSON string:
 
 ```swift
 let mastodon = Mastodon.decode(from: jsonString)
 ```
 
-Or, if you already have the JSON data:
+Or, if you already have JSON data:
 
 ```swift
 let mastodon = Mastodon.decode(from: jsonData)
 ```
 
-To decode a specific JSON branch, for example `profile.avatar`, specify it's path:
+To decode a specific JSON branch, for example `profile.avatar`, specify its path:
 
 ```swift
 let avatar = Mastodon.Profile.Avatar.decode(from: jsonData, path: ["profile", "avatar"])
 ```
 
-To decode an array (e.g. `toots`):
+To decode an array (e.g., `toots`):
 
 ```swift
 let toots = [Mastodon.Toot].decode(from: jsonData, path: ["toots"])
@@ -128,18 +156,22 @@ let toot = Mastodon.Toot.decode(from: jsonData, path: ["toots", 0])
 
 ### Swift Package Manager
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift`compiler.
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.
 
-Once your Swift package is set up, add Banana as a dependency to the `dependencies` value in your `Package.swift` file or to the package list in Xcode.
+Once you have a Swift package set up, add Banana as a dependency in your `Package.swift` file:
 
 ```swift
+// In Package.swift
+
 dependencies: [
     .package(url: "https://github.com/nixzhu/Banana.git", from: "0.5.0"),
 ]
 ```
 
-Typically, you will want to depend on the `Banana` target:
+Typically, you will want to depend on the `Banana` product:
 
 ```swift
+// In a target's dependencies
+
 .product(name: "Banana", package: "Banana")
 ```

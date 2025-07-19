@@ -21,17 +21,17 @@ import Testing
     }
 
     let jsonData = """
-        [
-            {
-                "id": 0,
-                "name": "nix"
-            },
-            {
-                "id": 1,
-                "name": "zhu"
-            }
-        ]
-        """.data(using: .utf8)!
+    [
+        {
+            "id": 0,
+            "name": "nix"
+        },
+        {
+            "id": 1,
+            "name": "zhu"
+        }
+    ]
+    """.data(using: .utf8)!
 
     let model = Model.decode(from: jsonData)
     #expect(model.list[0].id == 0)
@@ -52,17 +52,17 @@ import Testing
     }
 
     let jsonData = """
-        [
-            {
-                "id": 0,
-                "name": "nix"
-            },
-            {
-                "id": 1,
-                "name": "zhu"
-            }
-        ]
-        """.data(using: .utf8)!
+    [
+        {
+            "id": 0,
+            "name": "nix"
+        },
+        {
+            "id": 1,
+            "name": "zhu"
+        }
+    ]
+    """.data(using: .utf8)!
 
     let items = [Item].decode(from: jsonData)
     #expect(items[0].id == 0)

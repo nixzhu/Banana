@@ -11,14 +11,14 @@ import Testing
     }
 
     let jsonString = """
-        {
-            "a": {
-                "b": {
-                    "c": 42
-                }
+    {
+        "a": {
+            "b": {
+                "c": 42
             }
         }
-        """
+    }
+    """
 
     let model = B.decode(from: jsonString, path: ["a", "b"])
     #expect(model.c == 42)
@@ -34,16 +34,16 @@ import Testing
     }
 
     let jsonString = """
-        {
-            "a": {
-                "b": [
-                    {
-                        "c": 42
-                    }
-                ]
-            }
+    {
+        "a": {
+            "b": [
+                {
+                    "c": 42
+                }
+            ]
         }
-        """
+    }
+    """
 
     let list = [B].decode(from: jsonString, path: ["a", "b"])
     #expect(list[0].c == 42)
@@ -59,18 +59,18 @@ import Testing
     }
 
     let jsonString = """
-        {
-            "a": {
-                "b": [
-                    {
-                        "c": {
-                            "d": 42
-                        }
+    {
+        "a": {
+            "b": [
+                {
+                    "c": {
+                        "d": 42
                     }
-                ]
-            }
+                }
+            ]
         }
-        """
+    }
+    """
 
     let d = D.decode(from: jsonString, path: ["a", "b", 0, "c"])
     #expect(d.d == 42)

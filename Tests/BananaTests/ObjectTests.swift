@@ -26,7 +26,7 @@ import Testing
                 let createdAt: Date
 
                 init(json: BananaJSON) {
-                    id = json.id.int(.custom({ json in
+                    id = json.id.parse { json in
                         if let int = json.rawInt() {
                             return int
                         }
@@ -35,11 +35,11 @@ import Testing
                             return int
                         }
 
-                        return nil
-                    }))
+                        return 0
+                    }
                     content = json.content.string()
-                    isProtected = json.is_protected.bool(.custom(parseBool))
-                    createdAt = json.created_at.date(.custom(parseDate))
+                    isProtected = json.is_protected.parse(customBool) ?? false
+                    createdAt = json.created_at.parse(customDate) ?? .distantPast
                 }
             }
 
@@ -74,48 +74,48 @@ import Testing
     }
 
     let jsonString = """
-        {
-            "id": 42,
-            "name": "NIX 👨‍👩‍👧‍👦/🐣",
-            "int": 18,
-            "mastodon": {
-                "profile": {
-                    "username": "@nixzhu@mastodon.social",
-                    "nickname": "NIX",
-                    "avatar_url": "https://files.mastodon.social/accounts/avatars/109/329/064/034/222/219/original/371901c6daa01207.png",
-                    "mp3_url": "https://freetyst.nf.migu.cn/public/product9th/product45/2022/07/2210/2009年06月26日博尔普斯/标清高清/MP3_320_16_Stero/60054701923104030.mp3",
-                    "extra_info": {},
-                    "extra_list": []
+    {
+        "id": 42,
+        "name": "NIX 👨‍👩‍👧‍👦/🐣",
+        "int": 18,
+        "mastodon": {
+            "profile": {
+                "username": "@nixzhu@mastodon.social",
+                "nickname": "NIX",
+                "avatar_url": "https://files.mastodon.social/accounts/avatars/109/329/064/034/222/219/original/371901c6daa01207.png",
+                "mp3_url": "https://freetyst.nf.migu.cn/public/product9th/product45/2022/07/2210/2009年06月26日博尔普斯/标清高清/MP3_320_16_Stero/60054701923104030.mp3",
+                "extra_info": {},
+                "extra_list": []
+            },
+            "toots": [
+                {
+                    "id": 1,
+                    "content": "Hello World!",
+                    "is_protected": false,
+                    "created_at": "1234567890"
                 },
-                "toots": [
-                    {
-                        "id": 1,
-                        "content": "Hello World!",
-                        "is_protected": false,
-                        "created_at": "1234567890"
-                    },
-                    {
-                        "id": 2,
-                        "content": "How do you do?",
-                        "is_protected": "true",
-                        "created_at": 1234567890
-                    },
-                    {
-                        "id": "88888888888888888",
-                        "content": "A4纸不发货了",
-                        "is_protected": 0,
-                        "created_at": "8888888888"
-                    },
-                    {
-                        "id": "99999999999999999",
-                        "content": "春季快乐！",
-                        "is_protected": 1,
-                        "created_at": "2012-04-23T18:25:43.511Z"
-                    }
-                ]
-            }
+                {
+                    "id": 2,
+                    "content": "How do you do?",
+                    "is_protected": "true",
+                    "created_at": 1234567890
+                },
+                {
+                    "id": "88888888888888888",
+                    "content": "A4纸不发货了",
+                    "is_protected": 0,
+                    "created_at": "8888888888"
+                },
+                {
+                    "id": "99999999999999999",
+                    "content": "春季快乐！",
+                    "is_protected": 1,
+                    "created_at": "2012-04-23T18:25:43.511Z"
+                }
+            ]
         }
-        """
+    }
+    """
 
     let model = User.decode(from: jsonString)
 
@@ -173,18 +173,18 @@ import Testing
 
 @Test func object2() {
     let jsonString = """
-        {
-            "id": 10,
-            "contact_info": {
-                "email": "test@test.com"
-            },
-            "preferences": {
-                "contact": {
-                    "newsletter": true
-                }
+    {
+        "id": 10,
+        "contact_info": {
+            "email": "test@test.com"
+        },
+        "preferences": {
+            "contact": {
+                "newsletter": true
             }
         }
-        """
+    }
+    """
 
     struct User: BananaModel {
         let id: Int
@@ -205,7 +205,7 @@ import Testing
     #expect(user.isSubscribedToNewsletter == true)
 }
 
-private func parseBool(json: BananaJSON) -> Bool? {
+private func customBool(json: BananaJSON) -> Bool? {
     if let bool = json.rawBool() {
         return bool
     }
@@ -235,12 +235,12 @@ private func parseBool(json: BananaJSON) -> Bool? {
     return nil
 }
 
-private func parseDate(json: BananaJSON) -> Date? {
-    if let date = json.date(.unixSeconds) {
+private func customDate(json: BananaJSON) -> Date? {
+    if let date = json.unixSecondsDate() {
         return date
     }
 
-    if let date = json.date(.iso8601) {
+    if let date = json.iso8601Date() {
         return date
     }
 

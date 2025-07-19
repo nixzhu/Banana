@@ -4,30 +4,30 @@ import Testing
 
 @Test func example() async throws {
     let jsonString = """
-        {
-            "profile": {
-                "nickname": "NIX",
-                "username": "@nixzhu@mastodon.social",
-                "avatar": {
-                    "url": "https://example.com/nixzhu.png",
-                    "width": 200,
-                    "height": 200
-                }
+    {
+        "profile": {
+            "nickname": "NIX",
+            "username": "@nixzhu@mastodon.social",
+            "avatar": {
+                "url": "https://example.com/nixzhu.png",
+                "width": 200,
+                "height": 200
+            }
+        },
+        "toots": [
+            {
+                "id": 1,
+                "content": "Hello World!",
+                "created_at": "2024-10-05T09:41:00.789Z"
             },
-            "toots": [
-                {
-                    "id": 1,
-                    "content": "Hello World!",
-                    "created_at": "2024-10-05T09:41:00.789Z"
-                },
-                {
-                    "id": 2,
-                    "content": "How do you do?",
-                    "created_at": "2025-04-29T22:23:24.567Z"
-                }
-            ]
-        }
-        """
+            {
+                "id": 2,
+                "content": "How do you do?",
+                "created_at": "2025-04-29T22:23:24.567Z"
+            }
+        ]
+    }
+    """
 
     let mastodon = Mastodon.decode(from: jsonString)
     #expect(mastodon.profile.nickname == "NIX")
@@ -102,7 +102,7 @@ extension Mastodon {
         init(json: BananaJSON) {
             id = json.id.int()
             content = json.content.string()
-            createdAt = json.created_at.date()
+            createdAt = json.created_at.iso8601Date()
         }
     }
 }

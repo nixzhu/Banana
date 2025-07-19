@@ -110,3 +110,13 @@ extension BananaJSON {
         return result
     }
 }
+
+extension BananaJSON {
+    public func parse<T>(_ action: (Self) -> T) -> T {
+        action(self)
+    }
+
+    public func parse<T>(_ action: (Self) -> T?) -> T? {
+        action(self)
+    }
+}
