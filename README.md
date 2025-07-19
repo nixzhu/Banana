@@ -164,7 +164,7 @@ Once you have a Swift package set up, add Banana as a dependency in your `Packag
 // In Package.swift
 
 dependencies: [
-    .package(url: "https://github.com/nixzhu/Banana.git", from: "0.5.0"),
+    .package(url: "https://github.com/nixzhu/Banana.git", from: "0.6.0"),
 ]
 ```
 
