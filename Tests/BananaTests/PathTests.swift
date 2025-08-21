@@ -20,7 +20,7 @@ import Testing
     }
     """
 
-    let model = B.decode(from: jsonString, path: ["a", "b"])
+    let model = B.decode(from: jsonString, at: ["a", "b"])
     #expect(model.c == 42)
 }
 
@@ -45,7 +45,7 @@ import Testing
     }
     """
 
-    let list = [B].decode(from: jsonString, path: ["a", "b"])
+    let list = [B].decode(from: jsonString, at: ["a", "b"])
     #expect(list[0].c == 42)
 }
 
@@ -72,6 +72,6 @@ import Testing
     }
     """
 
-    let d = D.decode(from: jsonString, path: ["a", "b", 0, "c"])
+    let d = D.decode(from: jsonString, at: ["a", "b", 0, "c"])
     #expect(d.d == 42)
 }

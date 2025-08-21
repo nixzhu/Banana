@@ -40,16 +40,16 @@ import Testing
 
     let jsonData = jsonString.data(using: .utf8)!
 
-    let avatar = Mastodon.Profile.Avatar.decode(from: jsonData, path: ["profile", "avatar"])
+    let avatar = Mastodon.Profile.Avatar.decode(from: jsonData, at: ["profile", "avatar"])
     #expect(avatar.url.absoluteString == "https://example.com/nixzhu.png")
     #expect(avatar.height == 200)
 
-    let toots = [Mastodon.Toot].decode(from: jsonData, path: ["toots"])
+    let toots = [Mastodon.Toot].decode(from: jsonData, at: ["toots"])
     #expect(toots[1].id == 2)
     #expect(toots[1].content == "How do you do?")
     #expect(toots[1].createdAt.timeIntervalSince1970 == 1_745_965_404.567)
 
-    let toot = Mastodon.Toot.decode(from: jsonData, path: ["toots", 0])
+    let toot = Mastodon.Toot.decode(from: jsonData, at: ["toots", 0])
     #expect(toot.id == 1)
     #expect(toot.content == "Hello World!")
     #expect(toot.createdAt.timeIntervalSince1970 == 1_728_121_260.789)

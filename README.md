@@ -137,19 +137,19 @@ let mastodon = Mastodon.decode(from: jsonData)
 To decode a specific JSON branch, for example `profile.avatar`, specify its path:
 
 ```swift
-let avatar = Mastodon.Profile.Avatar.decode(from: jsonData, path: ["profile", "avatar"])
+let avatar = Mastodon.Profile.Avatar.decode(from: jsonData, at: ["profile", "avatar"])
 ```
 
 To decode an array (e.g., `toots`):
 
 ```swift
-let toots = [Mastodon.Toot].decode(from: jsonData, path: ["toots"])
+let toots = [Mastodon.Toot].decode(from: jsonData, at: ["toots"])
 ```
 
 Or decode only the first toot:
 
 ```swift
-let toot = Mastodon.Toot.decode(from: jsonData, path: ["toots", 0])
+let toot = Mastodon.Toot.decode(from: jsonData, at: ["toots", 0])
 ```
 
 ## Installation

@@ -7,11 +7,16 @@ public protocol BananaModel {
 
 extension BananaModel {
     public static func decode(
-        from jsonData: Data,
-        path: [BananaPathItem] = []
+        from data: Data,
+        at path: [BananaPathItem] = [],
+        allowingJSON5: Bool = false
     ) -> Self {
-        let doc = jsonData.withUnsafeBytes {
-            yyjson_read($0.bindMemory(to: CChar.self).baseAddress, jsonData.count, 0)
+        let doc = data.withUnsafeBytes {
+            yyjson_read(
+                $0.bindMemory(to: CChar.self).baseAddress,
+                data.count,
+                allowingJSON5 ? YYJSON_READ_JSON5 : YYJSON_READ_NOFLAG
+            )
         }
 
         if let doc {
@@ -39,12 +44,13 @@ extension BananaModel {
     }
 
     public static func decode(
-        from jsonString: String,
-        path: [BananaPathItem] = [],
-        encoding: String.Encoding = .utf8
+        from string: String,
+        at path: [BananaPathItem] = [],
+        allowingJSON5: Bool = false,
+        using encoding: String.Encoding = .utf8
     ) -> Self {
-        if let jsonData = jsonString.data(using: encoding) {
-            decode(from: jsonData, path: path)
+        if let jsonData = string.data(using: encoding) {
+            decode(from: jsonData, at: path, allowingJSON5: allowingJSON5)
         } else {
             .init(json: .init(pointer: nil))
         }
@@ -53,11 +59,16 @@ extension BananaModel {
 
 extension Dictionary where Key == String, Value: BananaModel {
     public static func decode(
-        from jsonData: Data,
-        path: [BananaPathItem] = []
+        from data: Data,
+        at path: [BananaPathItem] = [],
+        allowingJSON5: Bool = false
     ) -> Self {
-        let doc = jsonData.withUnsafeBytes {
-            yyjson_read($0.bindMemory(to: CChar.self).baseAddress, jsonData.count, 0)
+        let doc = data.withUnsafeBytes {
+            yyjson_read(
+                $0.bindMemory(to: CChar.self).baseAddress,
+                data.count,
+                allowingJSON5 ? YYJSON_READ_JSON5 : YYJSON_READ_NOFLAG
+            )
         }
 
         if let doc {
@@ -85,12 +96,13 @@ extension Dictionary where Key == String, Value: BananaModel {
     }
 
     public static func decode(
-        from jsonString: String,
-        path: [BananaPathItem] = [],
-        encoding: String.Encoding = .utf8
+        from string: String,
+        at path: [BananaPathItem] = [],
+        allowingJSON5: Bool = false,
+        using encoding: String.Encoding = .utf8
     ) -> Self {
-        if let jsonData = jsonString.data(using: encoding) {
-            decode(from: jsonData, path: path)
+        if let jsonData = string.data(using: encoding) {
+            decode(from: jsonData, at: path, allowingJSON5: allowingJSON5)
         } else {
             [:]
         }
@@ -99,11 +111,16 @@ extension Dictionary where Key == String, Value: BananaModel {
 
 extension Array where Element: BananaModel {
     public static func decode(
-        from jsonData: Data,
-        path: [BananaPathItem] = []
+        from data: Data,
+        at path: [BananaPathItem] = [],
+        allowingJSON5: Bool = false
     ) -> Self {
-        let doc = jsonData.withUnsafeBytes {
-            yyjson_read($0.bindMemory(to: CChar.self).baseAddress, jsonData.count, 0)
+        let doc = data.withUnsafeBytes {
+            yyjson_read(
+                $0.bindMemory(to: CChar.self).baseAddress,
+                data.count,
+                allowingJSON5 ? YYJSON_READ_JSON5 : YYJSON_READ_NOFLAG
+            )
         }
 
         if let doc {
@@ -131,12 +148,13 @@ extension Array where Element: BananaModel {
     }
 
     public static func decode(
-        from jsonString: String,
-        path: [BananaPathItem] = [],
-        encoding: String.Encoding = .utf8
+        from string: String,
+        at path: [BananaPathItem] = [],
+        allowingJSON5: Bool = false,
+        using encoding: String.Encoding = .utf8
     ) -> Self {
-        if let jsonData = jsonString.data(using: encoding) {
-            decode(from: jsonData, path: path)
+        if let jsonData = string.data(using: encoding) {
+            decode(from: jsonData, at: path, allowingJSON5: allowingJSON5)
         } else {
             []
         }

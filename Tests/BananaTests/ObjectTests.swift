@@ -161,7 +161,7 @@ import Testing
         model.mastodon.toots[3].createdAt.timeIntervalSince1970 == 1_335_205_543.511
     )
 
-    let toots = [User.Mastodon.Toot].decode(from: jsonString, path: ["mastodon", "toots"])
+    let toots = [User.Mastodon.Toot].decode(from: jsonString, at: ["mastodon", "toots"])
 
     #expect(toots[1].isProtected == true)
     #expect(toots[1].id == 2)
@@ -203,6 +203,58 @@ import Testing
     #expect(user.id == 10)
     #expect(user.email == "test@test.com")
     #expect(user.isSubscribedToNewsletter == true)
+}
+
+@Test func object3() {
+    struct Model: BananaModel {
+        let unquoted: String
+        let singleQuotes: String
+        let lineBreaks: String
+        let hexadecimal: Int
+        let leadingDecimalPoint: Double
+        let andTrailing: Double
+        let positiveSign: Int
+        let backwardsCompatible: String
+        let trailingComma: String
+
+        init(json: BananaJSON) {
+            unquoted = json.unquoted.string()
+            singleQuotes = json.singleQuotes.string()
+            lineBreaks = json.lineBreaks.string()
+            hexadecimal = json.hexadecimal.int()
+            leadingDecimalPoint = json.leadingDecimalPoint.double()
+            andTrailing = json.andTrailing.double()
+            positiveSign = json.positiveSign.int()
+            trailingComma = json.trailingComma.string()
+            backwardsCompatible = json.backwardsCompatible.string()
+        }
+    }
+
+    let json5String = """
+    {
+        // Comments
+        unquoted: 'and you can quote me on that',
+        singleQuotes: 'I can use "double quotes" here',
+        lineBreaks: "Look, Mom! \\
+    No \\\\n's!",
+        hexadecimal: 0xDECaf,
+        leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+        positiveSign: +1,
+        trailingComma: 'in objects',
+        "backwardsCompatible": "with JSON",
+    }
+    """
+
+    let model = Model.decode(from: json5String, allowingJSON5: true)
+    #expect(model.unquoted == "and you can quote me on that")
+    #expect(model.singleQuotes == "I can use \"double quotes\" here")
+    #expect(model.lineBreaks == "Look, Mom! No \\n's!")
+    #expect(model.hexadecimal == 0xDECAF)
+    #expect(model.leadingDecimalPoint == 0.8675309)
+    #expect(model.andTrailing == 8_675_309.0)
+    #expect(model.positiveSign == 1)
+    #expect(model.trailingComma == "in objects")
+    #expect(model.backwardsCompatible == "with JSON")
 }
 
 private func customBool(json: BananaJSON) -> Bool? {

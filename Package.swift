@@ -13,7 +13,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/ibireme/yyjson.git",
-            from: "0.11.1"
+            from: "0.12.0"
         ),
     ],
     targets: [
